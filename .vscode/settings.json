@@ -8,5 +8,5 @@
   "prettier.packageManager": "yarn",
   "prettier.singleQuote": true,
   "prettier.semi": false,
-  "prettier.trailingComma": "none"
+  "prettier.trailingComma": "all"
 }

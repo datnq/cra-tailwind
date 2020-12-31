@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "autoprefixer": "^9",
     "babel-eslint": "^10.1.0",
+    "classnames": "^2.2.6",
     "postcss": "^7",
     "postcss-preset-env": "^6.7.0",
     "react": "^17.0.1",
@@ -48,6 +49,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-flow": "^7.12.1",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
