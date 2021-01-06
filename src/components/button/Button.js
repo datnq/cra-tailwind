@@ -1,5 +1,11 @@
 import { useRef } from 'react'
 import { useButton } from 'react-aria'
+import tw from 'twin.macro'
+
+const TwButton = tw.button`
+  px-3 py-1 bg-blue-400 rounded text-white font-bold
+  hover:bg-blue-500
+`
 
 function Button(props) {
   let ref = useRef()
@@ -7,13 +13,9 @@ function Button(props) {
   let { children } = props
 
   return (
-    <button
-      {...buttonProps}
-      ref={ref}
-      className='px-3 py-1 ring-4 bg-blue-500 ring-blue-500 ring-opacity-30 rounded text-white font-bold'
-    >
+    <TwButton {...buttonProps} ref={ref}>
       {children}
-    </button>
+    </TwButton>
   )
 }
 export default Button

@@ -5,11 +5,11 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      fontFamily: { sans: ['Nunito', 'sans-serif'] }
-    }
+      fontFamily: { sans: ['Nunito', 'sans-serif'] },
+    },
   },
   variants: {
-    extend: {}
+    extend: {},
   },
-  plugins: []
+  plugins: [],
 }

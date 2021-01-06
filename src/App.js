@@ -1,12 +1,7 @@
-import Button from './components/button/Button'
-import logo from './logo.svg'
+import Home from './containers/Home'
 
 function App() {
-  return (
-    <div className='App'>
-      <Button>Button</Button>
-    </div>
-  )
+  return <Home />
 }
 
 export default App
