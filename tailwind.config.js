@@ -7,6 +7,12 @@ module.exports = {
     extend: {
       fontFamily: { sans: ['Nunito', 'sans-serif'] },
     },
+    gridTemplateColumns: {
+      layout: '200px minmax(800px, 1fr)',
+    },
+    gridTemplateRows: {
+      layout: '70px 1fr',
+    },
   },
   variants: {
     extend: {},

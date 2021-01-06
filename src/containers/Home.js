@@ -1,10 +1,16 @@
 import Button from '../components/button/Button'
+import Checkbox from '../components/form/Checkbox'
 import Layout from '../layouts/DefaultLayout'
 
 const Home = () => {
   return (
     <Layout>
-      <Button>Button</Button>
+      <div>
+        <Button>Button</Button>
+      </div>
+      <div>
+        <Checkbox>Checkbox</Checkbox>
+      </div>
     </Layout>
   )
 }
