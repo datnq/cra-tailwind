@@ -10,10 +10,10 @@ const TwButton = tw.button`
 function Button(props) {
   let ref = useRef()
   let { buttonProps } = useButton(props, ref)
-  let { children } = props
+  let { children, className } = props
 
   return (
-    <TwButton {...buttonProps} ref={ref}>
+    <TwButton {...buttonProps} className={className} ref={ref}>
       {children}
     </TwButton>
   )
