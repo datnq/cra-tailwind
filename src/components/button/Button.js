@@ -1,10 +1,16 @@
 import { useRef } from 'react'
 import { useButton } from 'react-aria'
+import styled from 'styled-components'
 import tw from 'twin.macro'
 
-const TwButton = tw.button`
-  px-3 py-1 bg-blue-400 rounded text-white font-bold
-  hover:bg-blue-500
+const TwButton = styled.button`
+  ${tw`px-4 py-2 bg-blue-400 rounded text-white font-bold
+    hover:bg-blue-500
+    flex
+  `}
+  & > svg {
+    ${tw`mr-2`}
+  }
 `
 
 function Button(props) {

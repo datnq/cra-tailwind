@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 
 export const Card = tw.article`
   rounded 
-  px-4 py-3
+  p-6
   bg-white
   shadow-xl
 `

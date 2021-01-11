@@ -1,36 +1,40 @@
-const {
-  REACT_APP_GITHUB_API_URL,
-  REACT_APP_GITHUB_AUTH_URL,
-  REACT_APP_GITHUB_CLIENT_ID,
-  REACT_APP_GITHUB_REDIRECT_URI,
-} = process.env
+import { config } from '../config/github'
+import qs from 'qs'
 
-export const githubConfig = {
-  contentType: 'application/vnd.github.v3+json',
-  authHeader: 'Authorization',
-  authMethod: 'token',
-  scope: 'repo',
-  apiURL: REACT_APP_GITHUB_API_URL,
-  authURL: REACT_APP_GITHUB_AUTH_URL,
-  clientID: REACT_APP_GITHUB_CLIENT_ID,
-  redirectURI: REACT_APP_GITHUB_REDIRECT_URI,
-}
+const state = '14b6035ec5dc6a8c98d0'
 
-const githubAPI = () => {
+const githubAPI = client => {
+  const conf = config()
   return {
-    login: () => {
+    auth: () => {
       const params = qs.stringify(
         {
-          client_id: githubConfig.clientID,
-          redirect_uri: githubConfig.redirectURI,
-          scope: githubConfig.scope,
+          client_id: conf.clientID,
+          redirect_uri: conf.redirectURI,
+          scope: conf.scope,
           allow_signup: false,
+          state,
         },
         { addQueryPrefix: true },
       )
-      const url = `${githubConfig.authURL}${params}`
-      window.location.href = url
+      window.location.href = `${conf.authURL}${params}`
       return true
+    },
+    getToken: code => {
+      const params = qs.stringify(
+        {
+          client_id: conf.clientID,
+          client_secret: conf.clientSecret,
+          redirect_uri: process.env.REACT_APP_PUBLIC_URL,
+          code,
+          state,
+        },
+        { addQueryPrefix: true },
+      )
+      return client
+        .post(`${conf.tokenURL}${params}`)
+        .then(response => response.data)
+        .then(qs.parse)
     },
   }
 }

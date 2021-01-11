@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-const TwLayout = tw.div`
-bg-gray-100
-  grid auto-rows-auto grid-cols-layout grid-rows-layout
-  h-screen
+const TwLayout = styled.div`
+  ${tw`bg-gray-100
+    grid auto-rows-auto grid-cols-layout grid-rows-layout
+    h-screen
+  `}
+  min-width: 1440px;
 `
 
 const Header = tw.header`
