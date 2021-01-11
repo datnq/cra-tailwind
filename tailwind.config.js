@@ -12,6 +12,9 @@ module.exports = {
       gridTemplateRows: {
         layout: '70px 1fr',
       },
+      colors: {
+        github: '#24292e',
+      },
     },
   },
   variants: {

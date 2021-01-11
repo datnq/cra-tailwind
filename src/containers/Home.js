@@ -1,46 +1,27 @@
-import tw from 'twin.macro'
-import Button from '../components/button/Button'
 import H1 from '../components/typography/H1'
 import Layout from '../layouts/DefaultLayout'
-
-const Card = tw.article`
-  rounded 
-  p-4
-  bg-blue-700 text-white
-`
-
-const CardHeader = tw.header`
-  text-lg
-  font-bold
-`
-
-const CardContent = tw.section`
-  py-3
-`
-
-const CardFooter = tw.footer``
-
-const CardAction = tw(Button)`
-  bg-white text-blue-700
-  hover:bg-white hover:text-blue-700 hover:opacity-90
-`
+import { Card, CardContent, CardFooter, CardHeader } from '../components/card'
+import { Section } from '../components/layout'
+import GithubLoginButton from '../components/github/LoginButton'
 
 const Home = () => {
   return (
     <Layout>
-      <H1>Create your applications</H1>
-      <div className='grid grid-cols-4 gap-4'>
+      <Section>
+        <H1>Create your applications</H1>
+      </Section>
+      <Section>Choose your issues provider:</Section>
+      <Section className='grid grid-cols-4 gap-4'>
         <Card>
-          <CardHeader>Jira</CardHeader>
+          <CardHeader>Github</CardHeader>
           <CardContent>
-            <p>Pull issues from Jira</p>
+            <p>Pull issues from Github</p>
           </CardContent>
           <CardFooter>
-            <CardAction onPress={console.log}>Login to Jira</CardAction>
+            <GithubLoginButton />
           </CardFooter>
         </Card>
-        <Card>Github</Card>
-      </div>
+      </Section>
     </Layout>
   )
 }
