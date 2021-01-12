@@ -1,28 +1,10 @@
 import H1 from '../components/typography/H1'
 import Layout from '../layouts/DefaultLayout'
-import { Card, CardContent, CardFooter, CardHeader } from '../components/card'
-import { Section } from '../components/layout'
-import GithubLoginButton from '../components/github/LoginButton'
+import useAuth from '../components/app/useAuth'
+import LoginOptions from '../components/loginOptions/LoginOptions'
 
 const Home = () => {
-  return (
-    <Layout>
-      <Section>
-        <H1>Create your applications</H1>
-      </Section>
-      <Section>Choose your issues provider:</Section>
-      <Section className='grid grid-cols-4 gap-4'>
-        <Card>
-          <CardHeader>Github</CardHeader>
-          <CardContent>
-            <p>Pull issues from Github</p>
-          </CardContent>
-          <CardFooter>
-            <GithubLoginButton />
-          </CardFooter>
-        </Card>
-      </Section>
-    </Layout>
-  )
+  const [token] = useAuth()
+  return <Layout>{!token ? <LoginOptions /> : <H1>Logged in</H1>}</Layout>
 }
 export default Home

@@ -9,7 +9,7 @@ export const AppContext = createContext()
 const AppProvider = props => {
   const [provider, setProvider] = useProvider()
   const conf = config[provider]
-  const [token] = useAuth(conf)
+  const [token, setToken] = useAuth(conf)
   return (
     <AppContext.Provider value={{ config: conf, provider, token }}>
       {props.children}

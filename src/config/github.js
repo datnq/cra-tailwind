@@ -9,7 +9,8 @@ const {
 
 export const config = () => {
   return {
-    contentType: 'application/vnd.github.v3+json',
+    // contentType: 'application/vnd.github.v3+json',
+    contentType: 'application/json',
     authHeader: 'Authorization',
     authMethod: 'token',
     scope: 'repo',

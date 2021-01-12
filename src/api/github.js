@@ -1,8 +1,6 @@
 import { config } from '../config/github'
 import qs from 'qs'
 
-const state = '14b6035ec5dc6a8c98d0'
-
 const githubAPI = client => {
   const conf = config()
   return {
@@ -13,7 +11,6 @@ const githubAPI = client => {
           redirect_uri: conf.redirectURI,
           scope: conf.scope,
           allow_signup: false,
-          state,
         },
         { addQueryPrefix: true },
       )
@@ -21,18 +18,13 @@ const githubAPI = client => {
       return true
     },
     getToken: code => {
-      const params = qs.stringify(
-        {
-          client_id: conf.clientID,
-          client_secret: conf.clientSecret,
-          redirect_uri: process.env.REACT_APP_PUBLIC_URL,
-          code,
-          state,
-        },
-        { addQueryPrefix: true },
-      )
+      const params = {
+        client_id: conf.clientID,
+        client_secret: conf.clientSecret,
+        code,
+      }
       return client
-        .post(`${conf.tokenURL}${params}`)
+        .post(`${conf.tokenURL}`, params)
         .then(response => response.data)
         .then(qs.parse)
     },

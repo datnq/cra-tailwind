@@ -3,9 +3,9 @@ import createPersistedState from 'use-persisted-state'
 const useToken = createPersistedState('token')
 
 const useAuth = config => {
-  const token = useToken()
+  const [token, setToken] = useToken()
 
-  return [token]
+  return [token, setToken]
 }
 
 export default useAuth

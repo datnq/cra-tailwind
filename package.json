@@ -16,6 +16,9 @@
     "babel-eslint": "^10.1.0",
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
+    "fastify": "^3.9.2",
+    "fastify-http-proxy": "^4.2.0",
+    "http-proxy-middleware": "^1.0.6",
     "js-cookie": "^2.2.1",
     "postcss": "^7",
     "postcss-preset-env": "^6.7.0",
@@ -36,6 +39,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
+    "server": "node ./src/server",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test"
