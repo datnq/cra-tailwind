@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 const TwButton = styled.button`
-  ${tw`px-4 py-2 bg-blue-400 rounded text-white font-bold
-    hover:bg-blue-500
-    flex
+  ${tw`px-4 py-2 bg-indigo-500 rounded text-white font-bold
+    hover:bg-indigo-600
+    flex justify-center
   `}
   & > svg {
     ${tw`mr-2`}
