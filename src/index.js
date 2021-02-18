@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { GlobalStyles } from 'twin.macro'
-import './assets/css/tailwind.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+
+import './assets/css/tailwind.css'
 
 ReactDOM.render(
   <React.StrictMode>
