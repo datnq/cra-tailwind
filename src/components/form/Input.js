@@ -3,7 +3,8 @@ import { useField, splitFormProps } from 'react-form'
 import tw from 'twin.macro'
 
 const TwInput = tw.input`
-  border-2 border-gray-300 rounded focus:border-gray-400 focus:outline-none
+  border-2 border-gray-200 rounded focus:border-primary focus:outline-none
+  bg-gray-200
   py-2 px-3
   text-github
 `

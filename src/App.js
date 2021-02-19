@@ -1,22 +1,16 @@
-import { Router } from '@reach/router'
+import { Redirect, Router } from '@reach/router'
 import tw from 'twin.macro'
-import useAuth from './components/app/useAuth'
-import GithubAuth from './containers/GithubAuth'
 import Home from './containers/Home'
+import Import from './containers/Import'
 import Login from './containers/Login'
 
 function App() {
-  const [token] = useAuth()
   return (
     <Router css={tw`h-screen`}>
-      {token ? (
-        <>
-          <Home path='/' />
-          <GithubAuth path='/auth/github' />
-        </>
-      ) : (
-        <Login path='/' />
-      )}
+      <Login path='/login' />
+      <Home path='/home' />
+      <Import path='/import/*' />
+      <Redirect from='/' to='/login' noThrow />
     </Router>
   )
 }
