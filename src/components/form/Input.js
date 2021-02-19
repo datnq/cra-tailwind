@@ -4,9 +4,8 @@ import tw from 'twin.macro'
 
 const TwInput = tw.input`
   border-2 border-gray-200 rounded focus:border-primary focus:outline-none
-  bg-gray-200
+  bg-gray-200 text-github
   py-2 px-3
-  text-github
 `
 
 export const Input = forwardRef((props, ref) => {

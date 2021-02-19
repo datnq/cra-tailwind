@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { forwardRef } from 'react'
 import { useButton } from 'react-aria'
 import styled from 'styled-components'
 import tw from 'twin.macro'
@@ -13,8 +13,7 @@ const TwButton = styled.button`
   }
 `
 
-function Button(props) {
-  let ref = useRef()
+const Button = forwardRef((props, ref) => {
   let { buttonProps } = useButton(props, ref)
   let { children, className } = props
 
@@ -23,5 +22,5 @@ function Button(props) {
       {children}
     </TwButton>
   )
-}
+})
 export default Button

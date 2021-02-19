@@ -1,25 +1,17 @@
+import { useEffect } from 'react'
+import createPersistedState from 'use-persisted-state'
+import { GetTokenForm } from '../../components/github'
+
+const useGithubToken = createPersistedState('githubToken')
+
 const Github = () => {
-  // const { search } = useLocation()
-  // const navigate = useNavigate()
-  // const { code } = qs.parse(search, { ignoreQueryPrefix: true })
-  // const { auth } = useAPI()
-  // const [, setToken] = useAuth()
+  const [token, setToken] = useGithubToken()
 
-  // useEffect(() => {
-  //   if (code) {
-  //     auth
-  //       .getToken(code)
-  //       .then(data => {
-  //         const { access_token: accessToken, token_type: tokenType } = data
-  //         setToken(`${tokenType} ${accessToken}`)
-  //       })
-  //       .then(() => {
-  //         navigate('/', { replace: true })
-  //       })
-  //   }
-  // }, [])
+  useEffect(() => {
+    localStorage.setItem('now', {})
+  }, [token])
 
-  return <span>Github</span>
+  return !token ? <GetTokenForm onToken={setToken} /> : token
 }
 
 export default Github
