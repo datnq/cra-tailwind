@@ -1,17 +1,31 @@
 import { Redirect, Router } from '@reach/router'
+import { useAtom } from 'jotai'
 import tw from 'twin.macro'
+import { authTokenAtom } from './api/auth'
+import AppProvider from './components/app/AppProvider'
+import { AuthCodeForm } from './components/loginForm'
 import Home from './containers/Home'
 import Import from './containers/Import'
 import Login from './containers/Login'
 
 function App() {
+  const [authToken] = useAtom(authTokenAtom)
+
   return (
-    <Router css={tw`h-screen`}>
-      <Login path='/login' />
-      <Home path='/home' />
-      <Import path='/import/*' />
-      <Redirect from='/' to='/login' noThrow />
-    </Router>
+    <AppProvider>
+      {!authToken ? (
+        <Router css={tw`h-screen`}>
+          <Login path='/login' />
+          <AuthCodeForm path='/auth/token' />
+        </Router>
+      ) : (
+        <Router css={tw`h-screen`}>
+          <Home path='/' />
+          <Import path='/import/*' />
+          <Redirect from='/login' to='/' noThrow />
+        </Router>
+      )}
+    </AppProvider>
   )
 }
 

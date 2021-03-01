@@ -1,19 +1,31 @@
 import tw from 'twin.macro'
-import { navigate } from '@reach/router'
 import Layout from '../layouts/BlankLayout'
 import Logo from '../assets/img/Logo.svg'
-import { LoginForm } from '../components/loginForm'
+import { AuthCodeForm, LoginForm } from '../components/loginForm'
+import { useState } from 'react'
+import { useAtom } from 'jotai'
+import { authTokenAtom } from '../api/auth'
 
 const Login = () => {
+  const [data, setData] = useState()
+
   return (
     <Layout>
       <main>
         <img src={Logo} tw='w-64 mx-auto mb-4' />
-        <LoginForm
-          onLoggedIn={() => {
-            navigate('/home')
-          }}
-        />
+        {!data?.id ? (
+          <LoginForm onLoggedIn={setData} />
+        ) : (
+          <div tw='text-center'>
+            <p tw='mb-4'>
+              A link has been sent to <strong>{email}</strong>. Please check
+              your Inbox and follow instructions.
+            </p>
+            <p tw='mb-4'>
+              Didn't receive email? <Link>Resend</Link>
+            </p>
+          </div>
+        )}
       </main>
     </Layout>
   )

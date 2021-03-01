@@ -1,6 +1,5 @@
 import tw from 'twin.macro'
-import { useLabel } from 'react-aria'
-import { useForm } from 'react-form'
+import { useForm } from 'react-hook-form'
 import { Inline } from '../layout'
 import { Input } from '../form'
 import Button from '../button'
@@ -12,25 +11,22 @@ const instructionLink =
   'https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token'
 
 const GetTokenForm = ({ onToken }) => {
-  const { Form } = useForm({
-    onSubmit: values => {
-      onToken(values.token)
-    },
-  })
-  const { fieldProps } = useLabel({
-    label: 'token',
-  })
+  const { register, handleSubmit } = useForm()
+  const onSubmit = values => {
+    onToken(values.token)
+  }
+
   return (
-    <Form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <header tw='text-center mb-8'>
         <H1 tw='mb-0'>Connect to Github using Personal Token</H1>
       </header>
       <Inline tw='justify-center'>
         <Input
-          field='token'
-          placeholder='Your Github Personal Token'
           tw='w-60'
-          {...fieldProps}
+          name='token'
+          placeholder='Your Github Personal Token'
+          ref={register}
         />
         <Button type='submit' tw='bg-github'>
           <IconBrandGithub /> Connect
@@ -43,7 +39,7 @@ const GetTokenForm = ({ onToken }) => {
         </Link>
         {'.'}
       </footer>
-    </Form>
+    </form>
   )
 }
 

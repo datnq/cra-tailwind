@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { GlobalStyles } from 'twin.macro'
+import { Provider } from 'jotai'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
@@ -8,8 +9,10 @@ import './assets/css/tailwind.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyles />
-    <App />
+    <Provider>
+      <GlobalStyles />
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 )

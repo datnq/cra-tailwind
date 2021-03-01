@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { useField, splitFormProps } from 'react-form'
+import { useTextField } from 'react-aria'
 import tw from 'twin.macro'
 
 const TwInput = tw.input`
@@ -9,9 +9,8 @@ const TwInput = tw.input`
 `
 
 export const Input = forwardRef((props, ref) => {
-  const [field, fieldOptions, rest] = splitFormProps(props)
-  const { getInputProps } = useField(field, fieldOptions)
-  return <TwInput {...getInputProps({ ref, ...rest })} />
+  let { inputProps } = useTextField(props, ref)
+  return <TwInput {...inputProps} ref={ref} />
 })
 
 export default Input

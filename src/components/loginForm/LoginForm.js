@@ -1,32 +1,34 @@
-import { useLabel } from 'react-aria'
-import { useForm } from 'react-form'
 import tw from 'twin.macro'
+import { useAtom } from 'jotai'
+import { useForm } from 'react-hook-form'
+import { loginAtom } from '../../api/auth'
 import Button from '../button'
 import { Input } from '../form'
 import { Inline } from '../layout'
 
 const LoginForm = ({ onLoggedIn }) => {
-  const { Form } = useForm({
-    onSubmit: () => {
-      onLoggedIn()
-    },
-  })
-  const { fieldProps } = useLabel({
-    label: 'email',
-  })
+  const { register, handleSubmit } = useForm()
+  const [login] = useAtom(loginAtom)
+
+  const onSubmit = values => {
+    login(values.email).then(result => {
+      const { Id: id, email } = result
+      onLoggedIn && onLoggedIn({ id, email })
+    })
+  }
 
   return (
-    <Form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Inline>
         <Input
-          field='email'
+          name='email'
           placeholder='youremail@watasolutions.com'
-          {...fieldProps}
           tw='w-64'
+          ref={register}
         />
         <Button type='submit'>Send login request</Button>
       </Inline>
-    </Form>
+    </form>
   )
 }
 

@@ -1,19 +1,12 @@
-import { createContext } from 'react'
-import createPersistedState from 'use-persisted-state'
-import config from './config'
-import useAuth from './useAuth'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
-const useProvider = createPersistedState('provider')
-export const AppContext = createContext()
+const queryClient = new QueryClient()
 
 const AppProvider = props => {
-  const [provider, setProvider] = useProvider()
-  const conf = config[provider]
-  const [token, setToken] = useAuth(conf)
   return (
-    <AppContext.Provider value={{ config: conf, provider, token }}>
+    <QueryClientProvider client={queryClient}>
       {props.children}
-    </AppContext.Provider>
+    </QueryClientProvider>
   )
 }
 
