@@ -1,10 +1,8 @@
 import tw from 'twin.macro'
 import Layout from '../layouts/BlankLayout'
 import Logo from '../assets/img/Logo.svg'
-import { AuthCodeForm, LoginForm } from '../components/loginForm'
+import { LoginForm } from '../components/loginForm'
 import { useState } from 'react'
-import { useAtom } from 'jotai'
-import { authTokenAtom } from '../api/auth'
 
 const Login = () => {
   const [data, setData] = useState()

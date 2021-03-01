@@ -1,26 +1,18 @@
-import { useAtom } from 'jotai'
-import { getTokenAtom } from '../../api/auth'
-import { useSearchParam } from 'react-use'
+import { tokenAtom } from '../../api/auth'
 import { useEffect } from 'react'
+import { useAtom } from 'jotai'
+import { login } from '../../api/firebase'
 
-const LoginForm = ({ onToken }) => {
-  const code = useSearchParam('code')
-  const email = useSearchParam('state')
-  const [getToken] = useAtom(getTokenAtom)
+const AuthCodeForm = ({ onToken }) => {
+  const [token] = useAtom(tokenAtom)
 
   useEffect(() => {
-    if (code && email) {
-      getToken({ email, code }).then(result => {
-        const {
-          access_token: accessToken,
-          refresh_token: refreshToken,
-        } = result
-        onToken && onToken({ accessToken, refreshToken })
-      })
+    if (!token) {
+      login().then(onToken)
     }
-  }, [code, email])
+  }, [token])
 
   return null
 }
 
-export default LoginForm
+export default AuthCodeForm

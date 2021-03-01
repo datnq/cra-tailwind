@@ -1,36 +1,31 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import Lockr from 'lockr'
+import config from '../config'
 
-const app = firebase.initializeApp({
-  apiKey: 'AIzaSyB9VnwN8hQt3e3GPf9M5WYzL32E-Gp8amA',
-  authDomain: 'my-test-project-83512.firebaseapp.com',
-  databaseURL: 'https://my-test-project-83512.firebaseio.com',
-  projectId: 'my-test-project-83512',
-  storageBucket: 'my-test-project-83512.appspot.com',
-  messagingSenderId: '449285810566',
-  appId: '1:449285810566:web:ce395f9f2c70cb4033e407',
-})
+import 'firebase/auth'
+
+const app = firebase.initializeApp(config.firebase)
 
 export const requestLogin = email =>
   app
     .auth()
     .sendSignInLinkToEmail(email, {
-      url: 'http://localhost:3000/auth/token',
+      url: config.auth.tokenEndpoint,
       handleCodeInApp: true,
     })
     .then(response => {
-      Lockr.set('email_to_signin', email)
+      Lockr.set(config.auth.emailKey, email)
       return response
     })
 
 export const login = () => {
   if (app.auth().isSignInWithEmailLink(window.location.href)) {
-    const email = Lockr.get('email_to_signin')
+    const email = Lockr.get(config.auth.emailKey)
     return app
       .auth()
       .signInWithEmailLink(email, window.location.href)
       .then(response => {
-        Lockr.rm('email_to_signin')
+        Lockr.rm(config.auth.emailKey)
         return response
       })
   }

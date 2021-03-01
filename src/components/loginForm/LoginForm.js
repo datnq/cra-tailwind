@@ -1,17 +1,16 @@
 import tw from 'twin.macro'
-import { useAtom } from 'jotai'
 import { useForm } from 'react-hook-form'
-import { loginAtom } from '../../api/auth'
 import Button from '../button'
 import { Input } from '../form'
 import { Inline } from '../layout'
+import { requestLogin } from '../../api/firebase'
 
 const LoginForm = ({ onLoggedIn }) => {
   const { register, handleSubmit } = useForm()
-  const [login] = useAtom(loginAtom)
 
   const onSubmit = values => {
-    login(values.email).then(result => {
+    requestLogin(values.email).then(result => {
+      console.log(result)
       const { Id: id, email } = result
       onLoggedIn && onLoggedIn({ id, email })
     })
