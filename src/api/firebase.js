@@ -4,13 +4,15 @@ import config from '../config'
 
 import 'firebase/auth'
 
-const app = firebase.initializeApp(config.firebase)
+const app = !firebase.apps.length
+  ? firebase.initializeApp(config.firebase)
+  : firebase.app()
 
 export const requestLogin = email =>
   app
     .auth()
     .sendSignInLinkToEmail(email, {
-      url: config.auth.tokenEndpoint,
+      url: config.app.publicUrl + config.auth.tokenEndpoint,
       handleCodeInApp: true,
     })
     .then(response => {
@@ -24,9 +26,10 @@ export const login = () => {
     return app
       .auth()
       .signInWithEmailLink(email, window.location.href)
-      .then(response => {
+      .then(({ user }) => {
         Lockr.rm(config.auth.emailKey)
-        return response
+        const result = user.toJSON()
+        return { token: result.stsTokenManager, user }
       })
   }
   return Promise.reject(new Error('Invalid signin link'))

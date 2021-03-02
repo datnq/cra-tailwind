@@ -16,7 +16,7 @@ function App() {
       {!token ? (
         <Router css={tw`h-screen`}>
           <Login path='/login' />
-          <AuthCodeForm path='/auth/token' />
+          <Login path='/auth/token' authCode />
           <Redirect from='/*' to='/login' />
         </Router>
       ) : (
