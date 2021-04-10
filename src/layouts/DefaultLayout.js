@@ -1,8 +1,5 @@
-import { IconBell, IconLogout, IconSettings } from '@tabler/icons'
 import styled from 'styled-components'
 import tw from 'twin.macro'
-import { Inline } from '../components/layout'
-import H1 from '../components/typography/H1'
 
 const TwLayout = styled.div`
   ${tw`bg-gray-100
@@ -29,20 +26,7 @@ const Main = tw.main`
 const Layout = ({ children, title, ...rest }) => {
   return (
     <TwLayout {...rest}>
-      <Header>
-        <H1 tw='mb-0'>{title}</H1>
-        <Inline>
-          <a>
-            <IconBell />
-          </a>
-          <a>
-            <IconSettings />
-          </a>
-          <a>
-            <IconLogout />
-          </a>
-        </Inline>
-      </Header>
+      <Header />
       <Main>{children}</Main>
     </TwLayout>
   )

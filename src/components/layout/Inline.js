@@ -6,7 +6,6 @@ const Inline = styled.div`
   ${tw`flex flex-row`}
 
   & > * {
-    ${'' /* ${props => (props.gap ? tw`mr-${props.gap}` : '')} */}
     ${styledMap('gap', {
       0: tw`mr-0`,
       sm: tw`mr-2`,

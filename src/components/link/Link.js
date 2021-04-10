@@ -1,6 +1,6 @@
+import tw from 'twin.macro'
 import { forwardRef } from 'react'
 import { useLink } from 'react-aria'
-import tw from 'twin.macro'
 
 const Link = forwardRef((props, ref) => {
   let { linkProps } = useLink(props, ref)

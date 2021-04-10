@@ -1,26 +1,14 @@
 import { forwardRef } from 'react'
 import { useButton } from 'react-aria'
-import styled from 'styled-components'
-import tw from 'twin.macro'
-
-const TwButton = styled.button`
-  ${tw`px-4 py-2 bg-primary rounded text-white font-bold
-    hover:bg-indigo-600
-    flex justify-center items-center
-  `}
-  & > svg {
-    ${tw`mr-2`}
-  }
-`
 
 const Button = forwardRef((props, ref) => {
   let { buttonProps } = useButton(props, ref)
-  let { children, className } = props
+  let { children } = props
 
   return (
-    <TwButton {...buttonProps} className={className} ref={ref}>
+    <button {...buttonProps} ref={ref}>
       {children}
-    </TwButton>
+    </button>
   )
 })
 export default Button
