@@ -7,8 +7,5 @@ export const Field = styled.div`
   label {
     ${tw`block mb-2`}
   }
-  input {
-    ${tw`w-full`}
-  }
 `
 export default Field
