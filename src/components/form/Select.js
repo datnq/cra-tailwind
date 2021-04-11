@@ -1,131 +1,55 @@
 import tw from 'twin.macro'
-import { useSelectState } from '@react-stately/select'
-import { Item } from '@react-stately/collections'
-import { HiddenSelect } from '@react-aria/select'
-import { useListBox, useOption } from '@react-aria/listbox'
-import { mergeProps } from '@react-aria/utils'
-import { useButton } from '@react-aria/button'
-import { useFocus } from '@react-aria/interactions'
-import { FocusScope } from '@react-aria/focus'
-import { useOverlay, DismissButton } from '@react-aria/overlays'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
+import { IconChevronDown } from '@tabler/icons'
+import { Listbox, Transition } from '@headlessui/react'
+
+const SelectButton = tw(Listbox.Button)`
+  flex items-center
+  cursor-default w-full rounded
+  text-sm
+  border border-gray-300 bg-white px-3 py-2 text-left
+  focus:outline-none focus:border-indigo-500
+  transition ease-in-out duration-150
+`
+
+const Options = tw(Listbox.Options)`
+  absolute left-0 w-full
+  bg-white rounded shadow-md
+  focus:outline-none
+`
+const Option = tw(Listbox.Option)`
+  py-2 px-3
+  cursor-pointer
+  hover:bg-gray-200
+  focus:outline-none
+`
 
 export const Select = forwardRef((props, ref) => {
-  // Create state based on the incoming props
-  let state = useSelectState(props)
+  const [selected, setSelected] = useState()
 
-  // Get props for child elements from useSelect
-  let { labelProps, triggerProps, valueProps, menuProps } = useSelect(
-    props,
-    state,
-    ref,
-  )
+  const selectedOption = props.options.find(o => o.value === selected)
 
-  // Get props for the button based on the trigger props from useSelect
-  let { buttonProps } = useButton(triggerProps, ref)
+  const select = data => {
+    setSelected(data)
+  }
 
   return (
-    <div tw='inline-block relative'>
-      <div {...labelProps}>{props.label}</div>
-      <HiddenSelect
-        state={state}
-        triggerRef={ref}
-        label={props.label}
-        name={props.name}
-      />
-      <button {...buttonProps} ref={ref}>
-        <span {...valueProps}>
-          {state.selectedItem
-            ? state.selectedItem.rendered
-            : 'Select an option'}
-        </span>
-        <span aria-hidden='true' tw='pl-1'>
-          &or;
-        </span>
-      </button>
-      {state.isOpen && <ListBoxPopup {...menuProps} state={state} />}
-    </div>
-  )
-})
-
-const ListBoxPopup = forwardRef(({ state, ...otherProps }, ref) => {
-  // Get props for the listbox
-  let { listBoxProps } = useListBox(
-    {
-      autoFocus: state.focusStrategy || true,
-      disallowEmptySelection: true,
-      ...otherProps,
-    },
-    state,
-    ref,
-  )
-
-  // Handle events that should cause the popup to close,
-  // e.g. blur, clicking outside, or pressing the escape key.
-  let overlayRef = React.useRef()
-  let { overlayProps } = useOverlay(
-    {
-      onClose: () => state.close(),
-      shouldCloseOnBlur: true,
-      isOpen: state.isOpen,
-      isDismissable: true,
-    },
-    overlayRef,
-  )
-
-  // Wrap in <FocusScope> so that focus is restored back to the
-  // trigger when the popup is closed. In addition, add hidden
-  // <DismissButton> components at the start and end of the list
-  // to allow screen reader users to dismiss the popup easily.
-  return (
-    <FocusScope restoreFocus>
-      <div {...overlayProps} ref={overlayRef}>
-        <DismissButton onDismiss={() => state.close()} />
-        <ul
-          {...mergeProps(listBoxProps, otherProps)}
-          ref={ref}
-          tw='absolute w-full m-0 mt-1 p-0 list-none border-gray-400 border-solid bg-white'
-        >
-          {[...state.collection].map(item => (
-            <Option key={item.key} item={item} state={state} />
+    <Listbox value={selected} onChange={select}>
+      <div tw='relative'>
+        <SelectButton>
+          <span tw='flex-grow'>
+            {selectedOption ? selectedOption.text : props.placeHolder}
+          </span>
+          <IconChevronDown size={12} />
+        </SelectButton>
+        <Options>
+          {props.options.map(option => (
+            <Option key={option.key} value={option.value}>
+              {option.text}
+            </Option>
           ))}
-        </ul>
-        <DismissButton onDismiss={() => state.close()} />
+        </Options>
       </div>
-    </FocusScope>
-  )
-})
-
-const Option = forwardRef(({ item, state }, ref) => {
-  let isDisabled = state.disabledKeys.has(item.key)
-  let isSelected = state.selectionManager.isSelected(item.key)
-  let { optionProps } = useOption(
-    {
-      key: item.key,
-      isDisabled,
-      isSelected,
-      shouldSelectOnPressUp: true,
-      shouldFocusOnHover: true,
-    },
-    state,
-    ref,
-  )
-
-  // Handle focus events so we can apply highlighted
-  // style to the focused option
-  let [isFocused, setFocused] = React.useState(false)
-  let { focusProps } = useFocus({ onFocusChange: setFocused })
-
-  return (
-    <li
-      {...mergeProps(optionProps, focusProps)}
-      ref={ref}
-      tw={
-        'px-1 py-2 outline-none cursor-pointer ' +
-        (isSelected ? 'bg-primary color-white' : '')
-      }
-    >
-      {item.rendered}
-    </li>
+    </Listbox>
   )
 })
