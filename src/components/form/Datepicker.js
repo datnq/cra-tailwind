@@ -5,40 +5,19 @@ import Button from '../button'
 import { Listbox } from '@headlessui/react'
 import { useState } from 'react'
 import { format } from '../../lib/date'
+import { Button as SelectButton, Options, Option, ListItem } from './ListBox'
 
-const Day = styled.div`
-  ${tw`
-    py-1 px-2 cursor-pointer rounded text-right
-    hover:bg-gray-200
-  `}
+const Day = styled(ListItem)`
+  ${tw`py-1 px-2 rounded text-right`}
   ${props => (props.isToday ? tw`text-indigo-500 font-bold` : '')}
   ${props => (!props.isSameMonth ? tw`text-gray-300` : '')}
-  ${props =>
-    props.selected ? tw`bg-indigo-500 text-white hover:bg-indigo-600` : ''}
-`
-
-const SelectButton = tw(Listbox.Button)`
-  flex items-center
-  cursor-default w-full rounded
-  text-sm
-  border border-gray-300 bg-white px-3 py-2 text-left
-  focus:outline-none focus:border-indigo-500
-  transition ease-in-out duration-150
-`
-
-const Options = tw(Listbox.Options)`
-  absolute left-0 min-w-full p-2
-  bg-white rounded shadow-md
-  focus:outline-none
-  border-collapse
-  z-10
 `
 
 const Calendar = () => {
   const [state, actions] = useCalendar(new Date())
 
   return (
-    <Options>
+    <Options tw='p-2'>
       <table tw='border-collapse'>
         <thead>
           <tr>
@@ -47,10 +26,10 @@ const Calendar = () => {
                 <strong tw='flex-grow'>
                   {state.month} - {state.year}
                 </strong>
-                <Button type='button' onClick={actions.getPrevMonth}>
+                <Button type='button' onClick={actions.getPrevMonth} tw='px-2'>
                   <IconChevronLeft size={16} />
                 </Button>
-                <Button type='button' onClick={actions.getNextMonth}>
+                <Button type='button' onClick={actions.getNextMonth} tw='px-2'>
                   <IconChevronRight size={16} />
                 </Button>
               </div>
@@ -68,13 +47,13 @@ const Calendar = () => {
           {state.weeks.map((week, index) => (
             <tr key={index}>
               {week.map(day => (
-                <Listbox.Option value={day.date} as='td' key={day.dayOfMonth}>
+                <Option value={day.date} as='td' key={day.dayOfMonth}>
                   {({ selected }) => (
                     <Day {...day} selected={selected}>
                       {day.dayOfMonth}
                     </Day>
                   )}
-                </Listbox.Option>
+                </Option>
               ))}
             </tr>
           ))}
@@ -91,7 +70,7 @@ const Datepicker = () => {
     <Listbox value={selected} onChange={setSelected}>
       <div tw='relative'>
         <SelectButton>
-          <span tw='flex-grow'>{selected && format(selected)}</span>
+          <span tw='block flex-grow'>{selected && format(selected)}</span>
           <IconCalendar size={16} />
         </SelectButton>
         <Calendar />

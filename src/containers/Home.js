@@ -6,6 +6,8 @@ import Input from '../components/form/Input'
 import { Select } from '../components/form/Select'
 import Layout from '../layouts/DefaultLayout'
 import Datepicker from '../components/form/Datepicker'
+import Button from '../components/button'
+import { IconPlus } from '@tabler/icons'
 
 const Home = () => {
   const options = [
@@ -33,6 +35,16 @@ const Home = () => {
           </div>
           <div tw='my-4'>
             <Select name='select' options={options} />
+          </div>
+          <div tw='my-4'>
+            <Button>Default</Button>
+            <Button type='submit'>Primary</Button>
+            <Button>
+              <span>Icon</span> <IconPlus size={16} />
+            </Button>
+            <Button type='submit'>
+              <IconPlus size={16} /> <span>Primary Icon</span>
+            </Button>
           </div>
         </form>
       </Centerized>
