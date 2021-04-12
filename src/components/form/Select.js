@@ -40,7 +40,7 @@ export const Select = forwardRef((props, ref) => {
           <span tw='flex-grow'>
             {selectedOption ? selectedOption.text : props.placeHolder}
           </span>
-          <IconChevronDown size={12} />
+          <IconChevronDown size={16} />
         </SelectButton>
         <Options>
           {props.options.map(option => (

@@ -8,12 +8,10 @@ import reportWebVitals from './reportWebVitals'
 import './assets/css/tailwind.css'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider>
-      <GlobalStyles />
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Provider>
+    <GlobalStyles />
+    <App />
+  </Provider>,
   document.getElementById('root'),
 )
 

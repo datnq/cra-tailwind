@@ -5,6 +5,7 @@ import Radio from '../components/form/Radio'
 import Input from '../components/form/Input'
 import { Select } from '../components/form/Select'
 import Layout from '../layouts/DefaultLayout'
+import Datepicker from '../components/form/Datepicker'
 
 const Home = () => {
   const options = [
@@ -19,13 +20,16 @@ const Home = () => {
             <Input />
           </div>
           <div tw='my-4'>
-            <Input multiline />
+            <Datepicker />
           </div>
           <div tw='my-4'>
             <Checkbox>Select me</Checkbox>
           </div>
           <div tw='my-4'>
-            <Radio>Select me</Radio>
+            <Radio name='radio'>Select me</Radio>
+            <Radio name='radio' defaultChecked>
+              Select me
+            </Radio>
           </div>
           <div tw='my-4'>
             <Select name='select' options={options} />

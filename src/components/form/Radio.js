@@ -13,13 +13,17 @@ const RadioInput = styled.input`
     content: '';
     ${tw`
       block absolute left-1/2 top-1/2 w-2 h-2
-      bg-white rounded-full
+      bg-indigo-500 rounded-full
       transform -translate-x-1/2 -translate-y-1/2
+      opacity-0
     `}
   }
 
   &:checked {
-    ${tw`bg-indigo-500 border-indigo-500`}
+    ${tw`bg-white border-indigo-500`}
+  }
+  &:checked::after {
+    ${tw`opacity-100`}
   }
 
   &:disabled {
