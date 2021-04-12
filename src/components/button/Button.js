@@ -2,13 +2,17 @@ import tw, { styled } from 'twin.macro'
 
 const Button = styled.button`
   ${tw`
-    bg-gray-300 px-4 py-2 text-sm inline-flex mx-1 items-center align-middle
+    bg-commentary px-4 py-2 text-sm inline-flex mx-1 items-center align-middle
     hover:opacity-80
-    focus:ring focus:outline-none focus:ring-gray-300 focus:ring-opacity-40
+    focus:ring focus:outline-none focus:ring-commentary focus:ring-opacity-40
+    select-none
   `}
+  -webkit-tap-highlight-color: transparent;
 
   ${props =>
-    props.primary || props.type === 'submit' ? tw`bg-primary text-white` : ''}
+    props.primary || props.type === 'submit'
+      ? tw`bg-primary text-white focus:ring-primary focus:ring-opacity-40`
+      : ''}
 
   &:last-child {
     ${tw`mr-0`}

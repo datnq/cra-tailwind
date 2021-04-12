@@ -4,7 +4,12 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "extends": ["plugin:prettier/recommended", "prettier/react"],
+  "extends": [
+    "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react-hooks/recommended"
+  ],
   "env": {
     "browser": true,
     "commonjs": true,

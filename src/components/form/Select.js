@@ -1,20 +1,14 @@
 import tw from 'twin.macro'
-import { forwardRef, useEffect, useRef, useState } from 'react'
+import { forwardRef } from 'react'
 import { IconChevronDown } from '@tabler/icons'
-import { Listbox, Transition } from '@headlessui/react'
+import { Listbox } from '@headlessui/react'
 import { Button, Options, Option, ListItem } from './ListBox'
 
-export const Select = forwardRef((props, ref) => {
-  const [selected, setSelected] = useState()
-
-  const selectedOption = props.options.find(o => o.value === selected)
-
-  const select = data => {
-    setSelected(data)
-  }
+const Select = forwardRef(({value, onChange, ...props}, ref) => {
+  const selectedOption = props.options.find(o => o.value === value)
 
   return (
-    <Listbox value={selected} onChange={select}>
+    <Listbox value={value} onChange={onChange}>
       <div tw='relative'>
         <Button>
           <span tw='block flex-grow'>
@@ -35,3 +29,5 @@ export const Select = forwardRef((props, ref) => {
     </Listbox>
   )
 })
+
+export default Select

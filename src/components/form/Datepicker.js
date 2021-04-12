@@ -3,13 +3,13 @@ import useCalendar from 'react-use-calendar'
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons'
 import Button from '../button'
 import { Listbox } from '@headlessui/react'
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import { format } from '../../lib/date'
 import { Button as SelectButton, Options, Option, ListItem } from './ListBox'
 
 const Day = styled(ListItem)`
-  ${tw`py-1 px-2 rounded text-right`}
-  ${props => (props.isToday ? tw`text-indigo-500 font-bold` : '')}
+  ${tw`w-8 h-8 p-0 rounded-full text-right flex items-center justify-center`}
+  ${props => (props.isToday ? tw`text-primary font-bold` : '')}
   ${props => (!props.isSameMonth ? tw`text-gray-300` : '')}
 `
 
@@ -17,7 +17,7 @@ const Calendar = () => {
   const [state, actions] = useCalendar(new Date())
 
   return (
-    <Options tw='p-2'>
+    <Options tw='p-2 min-w-min'>
       <table tw='border-collapse'>
         <thead>
           <tr>
@@ -37,7 +37,7 @@ const Calendar = () => {
           </tr>
           <tr>
             {state.days.map(day => (
-              <th key={day} tw='text-right py-1 px-2 text-sm'>
+              <th key={day} tw='text-center py-1 px-2 text-sm'>
                 {day}
               </th>
             ))}
@@ -63,20 +63,18 @@ const Calendar = () => {
   )
 }
 
-const Datepicker = () => {
-  const [selected, setSelected] = useState()
-
+const Datepicker = forwardRef(({ value, onChange }, ref) => {
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={value} onChange={onChange}>
       <div tw='relative'>
         <SelectButton>
-          <span tw='block flex-grow'>{selected && format(selected)}</span>
+          <span tw='block flex-grow'>{value && format(value)}</span>
           <IconCalendar size={16} />
         </SelectButton>
         <Calendar />
       </div>
     </Listbox>
   )
-}
+})
 
 export default Datepicker

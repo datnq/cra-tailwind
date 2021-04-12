@@ -4,9 +4,8 @@ import tw from 'twin.macro'
 const TwLayout = styled.div`
   ${tw`bg-gray-100
     grid auto-rows-auto grid-cols-layout grid-rows-layout
-    h-screen
+    min-h-screen
   `}
-  min-width: 1024px;
 `
 
 const Header = tw.header`

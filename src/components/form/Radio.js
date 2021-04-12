@@ -3,7 +3,7 @@ import tw, { styled } from 'twin.macro'
 
 const RadioInput = styled.input`
   ${tw`appearance-none outline-none cursor-pointer
-    inline-block h-4 w-4 m-0 mr-2 mb-1
+    inline-block h-4 w-4 m-0 mr-2 mb-px
     relative
     border border-gray-300 rounded-full
     bg-white
@@ -13,14 +13,14 @@ const RadioInput = styled.input`
     content: '';
     ${tw`
       block absolute left-1/2 top-1/2 w-2 h-2
-      bg-indigo-500 rounded-full
+      bg-primary rounded-full
       transform -translate-x-1/2 -translate-y-1/2
       opacity-0
     `}
   }
 
   &:checked {
-    ${tw`bg-white border-indigo-500`}
+    ${tw`bg-white border-primary`}
   }
   &:checked::after {
     ${tw`opacity-100`}
@@ -40,7 +40,7 @@ const RadioInput = styled.input`
 
 const Radio = forwardRef(({ children, ...props }, ref) => {
   return (
-    <label tw='flex items-center text-sm'>
+    <label tw='flex items-center text-sm cursor-pointer'>
       <RadioInput type='radio' {...props} ref={ref} />
       <span>{children}</span>
     </label>

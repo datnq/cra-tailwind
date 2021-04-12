@@ -1,51 +1,79 @@
 import tw from 'twin.macro'
+import { useForm } from 'react-hook-form'
 import Centerized from '../components/centerized'
-import Checkbox from '../components/form/Checkbox'
-import Radio from '../components/form/Radio'
-import Input from '../components/form/Input'
-import { Select } from '../components/form/Select'
 import Layout from '../layouts/DefaultLayout'
-import Datepicker from '../components/form/Datepicker'
-import Button from '../components/button'
-import { IconPlus } from '@tabler/icons'
+import {
+  Checkbox,
+  Datepicker,
+  Field,
+  RadioGroup,
+  Select,
+  Switch,
+  Textarea,
+} from '../components/form'
 
 const Home = () => {
   const options = [
     { key: 1, value: 1, text: 'Value 1' },
     { key: 2, value: 2, text: 'Value 2' },
   ]
+
+  const { register, control, watch } = useForm({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      text: 'Text value',
+      textarea: 'hahhaah',
+      datetime: new Date(),
+      checkbox: true,
+      radio: 1,
+      select: 2,
+      switch: true,
+    },
+  })
+
+  const all = watch()
+  console.log(all)
+
   return (
     <Layout title='Doing Now'>
       <Centerized>
         <form>
-          <div tw='my-4'>
-            <Input />
-          </div>
-          <div tw='my-4'>
-            <Datepicker />
-          </div>
-          <div tw='my-4'>
-            <Checkbox>Select me</Checkbox>
-          </div>
-          <div tw='my-4'>
-            <Radio name='radio'>Select me</Radio>
-            <Radio name='radio' defaultChecked>
-              Select me
-            </Radio>
-          </div>
-          <div tw='my-4'>
-            <Select name='select' options={options} />
-          </div>
-          <div tw='my-4'>
-            <Button>Default</Button>
-            <Button type='submit'>Primary</Button>
-            <Button>
-              <span>Icon</span> <IconPlus size={16} />
-            </Button>
-            <Button type='submit'>
-              <IconPlus size={16} /> <span>Primary Icon</span>
-            </Button>
-          </div>
+          <Field label='Text' {...register('text')} />
+          <Field
+            label='Textarea'
+            component={Textarea}
+            {...register('textarea')}
+          />
+          <Field
+            label='Checkbox'
+            component={Checkbox}
+            {...register('checkbox')}
+          >
+            Check me
+          </Field>
+          <Field label='Switch' component={Switch} {...register('switch')}>
+            On/Off
+          </Field>
+          <Field
+            label='Select one'
+            component={RadioGroup}
+            options={options}
+            {...register('radio')}
+          />
+          <Field
+            label='Select'
+            name='select'
+            component={Select}
+            options={options}
+            control={control}
+          />
+          <Field
+            label='Pick a date'
+            name='datetime'
+            component={Datepicker}
+            control={control}
+          />
         </form>
       </Centerized>
     </Layout>

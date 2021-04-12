@@ -13,10 +13,10 @@ module.exports = {
         layout: '70px 1fr',
       },
       colors: {
-        github: '#24292e',
-        jira: '#0052CC',
-        gitlab: '#FC6D26',
         primary: colors.indigo[500],
+        commentary: colors.gray[300],
+        line: colors.gray[300],
+        lineDarker: colors.gray[400],
       },
     },
   },
