@@ -11,6 +11,7 @@ import {
   Switch,
   Textarea,
 } from '../components/form'
+import Editor from '../components/editor'
 
 const Home = () => {
   const options = [
@@ -32,13 +33,18 @@ const Home = () => {
     },
   })
 
-  const all = watch()
-  console.log(all)
+  const text = watch('text')
 
   return (
     <Layout title='Doing Now'>
       <Centerized>
-        <form>
+        <form tw='w-96'>
+          <Field
+            label='Content'
+            name='text'
+            component={Editor}
+            control={control}
+          />
           <Field label='Text' {...register('text')} />
           <Field
             label='Textarea'
