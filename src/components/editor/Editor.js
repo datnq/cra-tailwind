@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 
 const EditorWrapper = tw.div`
   prose cursor-text
-  block px-4
+  block px-8
   bg-white border rounded
   focus:outline-none focus:border-primary
 `

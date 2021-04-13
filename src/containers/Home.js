@@ -24,7 +24,6 @@ const Home = () => {
     reValidateMode: 'onChange',
     defaultValues: {
       text: 'Text value',
-      textarea: 'hahhaah',
       datetime: new Date(),
       checkbox: true,
       radio: 1,
@@ -46,11 +45,6 @@ const Home = () => {
             control={control}
           />
           <Field label='Text' {...register('text')} />
-          <Field
-            label='Textarea'
-            component={Textarea}
-            {...register('textarea')}
-          />
           <Field
             label='Checkbox'
             component={Checkbox}
