@@ -12,6 +12,8 @@ import {
   Textarea,
 } from '../components/form'
 import Editor from '../components/editor'
+import { useDialog } from '../components/modal/useDialog'
+import Button from '../components/button'
 
 const Home = () => {
   const options = [
@@ -32,11 +34,27 @@ const Home = () => {
     },
   })
 
-  const text = watch('text')
+  const { confirm } = useDialog()
+
+  const open = async () => {
+    const value = await confirm(
+      'Your payment has been successfully submitted. We’ve sent your an email with all of the details of your order.',
+      {
+        variant: 'danger',
+        title: 'Payment successful',
+        okLabel: 'Yes',
+        cancelLabel: 'No'
+      },
+    )
+    console.log('Clicked!', value)
+  }
 
   return (
     <Layout title='Doing Now'>
       <Centerized>
+        <div tw='my-8'>
+          <Button onClick={open}>Open dialog</Button>
+        </div>
         <form tw='w-96'>
           <Field
             label='Content'
