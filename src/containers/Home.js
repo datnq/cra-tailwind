@@ -65,24 +65,15 @@ const Home = () => {
             On/Off
           </Field>
           <Field
-            label='Select one'
-            component={RadioGroup}
-            options={options}
-            {...register('radio')}
-          />
-          <Field
-            label='Select'
-            name='select'
-            component={Select}
-            options={options}
-            control={control}
-          />
-          <Field
             label='Pick a date'
             name='datetime'
             component={Datepicker}
             control={control}
           />
+          <div>
+            <Button type='submit'>Submit</Button>
+            <Button type='button'>Cancel</Button>
+          </div>
         </form>
       </Centerized>
     </Layout>
