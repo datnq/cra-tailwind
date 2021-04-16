@@ -3,7 +3,7 @@ import useCalendar from 'react-use-calendar'
 import { IconCalendar, IconChevronLeft, IconChevronRight } from '@tabler/icons'
 import Button from '../button'
 import { Listbox } from '@headlessui/react'
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 import { format } from '../../lib/date'
 import { Button as SelectButton, Options, Option, ListItem } from './ListBox'
 

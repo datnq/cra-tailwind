@@ -1,3 +1,4 @@
+import tw from 'twin.macro'
 import clsx from 'clsx'
 import { useRef } from 'react'
 import { useModal } from './useModal'
@@ -57,7 +58,13 @@ export const useDialog = () => {
       ...opts,
       content: message,
       footer: (close, focusRef) => (
-        <>
+        <div tw='flex justify-center'>
+          <DefaultButton
+            className={clsx(cancelClassName)}
+            onClick={handleCancel(close)}
+          >
+            {cancelLabel}
+          </DefaultButton>
           <PrimaryButton
             className={clsx(okClassName)}
             onClick={handleOk(close)}
@@ -65,13 +72,7 @@ export const useDialog = () => {
           >
             {okLabel}
           </PrimaryButton>
-          <DefaultButton
-            className={clsx(cancelClassName)}
-            onClick={handleCancel(close)}
-          >
-            {cancelLabel}
-          </DefaultButton>
-        </>
+        </div>
       ),
     })
   }

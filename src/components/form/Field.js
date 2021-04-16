@@ -1,21 +1,30 @@
-import tw from 'twin.macro'
+import tw, { styled } from 'twin.macro'
 import { forwardRef } from 'react'
 import Input from './Input'
 import { Controller } from 'react-hook-form'
+import useFieldId from './useFieldId'
+
+const FieldControl = styled.div`
+  & > input,
+  & > textarea {
+    ${tw`w-full`}
+  }
+`
 
 const Field = forwardRef(
   (
     { label, controlId, component: Component = Input, control, name, ...props },
     ref,
   ) => {
+    const id = useFieldId(controlId)
     return (
       <div tw='my-6 flex flex-col'>
         {label && (
-          <label tw='text-sm mb-2 font-bold text-gray-500' htmlFor={controlId}>
+          <label tw='text-sm mb-2 font-bold text-gray-500' htmlFor={id}>
             {label}
           </label>
         )}
-        <div>
+        <FieldControl>
           {control ? (
             <Controller
               control={control}
@@ -25,9 +34,9 @@ const Field = forwardRef(
               }}
             />
           ) : (
-            <Component id={controlId} name={name} {...props} ref={ref} />
+            <Component id={id} name={name} {...props} ref={ref} />
           )}
-        </div>
+        </FieldControl>
       </div>
     )
   },

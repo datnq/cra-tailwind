@@ -52,16 +52,7 @@ const Home = () => {
   return (
     <Layout title='Doing Now'>
       <Centerized>
-        <div tw='my-8'>
-          <Button onClick={open}>Open dialog</Button>
-        </div>
-        <form tw='w-96'>
-          <Field
-            label='Content'
-            name='text'
-            component={Editor}
-            control={control}
-          />
+        <form tw='w-full max-w-lg'>
           <Field label='Text' {...register('text')} />
           <Field
             label='Checkbox'

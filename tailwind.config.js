@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors')
+const { borderWidth } = require('tailwindcss/defaultTheme')
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -21,7 +22,11 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      borderColor: ['checked', 'disabled'],
+      backgroundColor: ['checked', 'disabled'],
+      cursor: ['disabled']
+    },
   },
   plugins: [
     require('@tailwindcss/typography')
