@@ -2,7 +2,7 @@ import tw, { styled } from 'twin.macro'
 import { forwardRef } from 'react'
 import Input from './Input'
 import { Controller } from 'react-hook-form'
-import useFieldId from './useFieldId'
+import useFieldId from '../../hooks/useFieldId'
 
 const FieldControl = styled.div`
   & > input,
@@ -30,7 +30,7 @@ const Field = forwardRef(
               control={control}
               name={name}
               render={({ field }) => {
-                return <Component {...field} {...props} />
+                return <Component id={id} {...field} {...props} />
               }}
             />
           ) : (

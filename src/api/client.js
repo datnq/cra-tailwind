@@ -1,8 +1,7 @@
 import axios from 'axios'
 import config from '../config'
 
-axios.defaults.baseURL = config.weather.apiPrefix
-axios.defaults.params = { appid: config.weather.apiKey }
+axios.defaults.baseURL = config.sampleAPI.baseURL
 axios.defaults.headers['content-type'] = 'application/json'
 axios.defaults.headers['accept'] = 'application/json'
 

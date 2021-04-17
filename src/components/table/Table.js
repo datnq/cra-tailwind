@@ -1,104 +1,100 @@
-import { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
-import BaseTable, { AutoResizer, Column } from 'react-base-table'
-import { Checkbox } from '../form'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import BaseTable, { AutoResizer } from 'react-base-table'
+import { useEnhancedColumns } from './useEnhancedColumns'
 
-const SelectionColumn = forwardRef(
-  ({ selected, allSelected, onSelect, onSelectAll, ...props }, ref) => {
-    return (
-      <Column
-        {...props}
-        ref={ref}
-        cellRenderer={({ cellData }) => {
-          return (
-            <Checkbox
-              value={cellData}
-              checked={selected.includes(cellData)}
-              onChange={onSelect}
-            />
-          )
-        }}
-        headerRenderer={() => {
-          return (
-            <Checkbox
-              value='select-all'
-              checked={allSelected}
-              onChange={onSelectAll}
-            />
-          )
-        }}
-      />
-    )
-  },
-)
+import 'react-base-table/styles.css'
 
-const Table = forwardRef(
-  (
-    { defaultSelected, selectable, onSelectionChange, children, data = [], rowKey, ...props },
-    ref,
-  ) => {
-    const [selected, setSelected] = useState(defaultSelected || [])
-    const isFirstRender = useRef(true)
+const Table = forwardRef(({ rowKey = 'id', ...props }, ref) => {
+  const {
+    defaultSelected = [],
+    selectable,
+    onSelectionChange,
+    children,
+    data = [],
+    columns,
+    ...tableProps
+  } = props
+  const [selected, setSelected] = useState(
+    defaultSelected.map(i => i.toString()),
+  )
 
-    const allSelected = useMemo(() => {
-      if (!data.length || !selected) return false
-      return data.map(i => i[rowKey]).every(key => selected.includes(key))
-    }, [data, rowKey, selected])
+  const selectableData = useRef([])
 
-    const isSelected = selected.includes(value)
+  const isFirstRender = useRef(true)
 
-    const select = e => {
-      const { value, checked } = e.target
+  useEffect(() => {
+    selectableData.current = data.map(i => i[rowKey].toString())
+  }, [data, rowKey])
+  
+
+  const allSelected = useMemo(() => {
+    if (!selectableData.current.length || !selected) return false
+    return selectableData.current.every(key => selected.includes(key))
+  }, [selected])
+
+  const select = useCallback(
+    ({ value, checked }) => {
+      const isSelected = selected.includes(value)
       if (checked && !isSelected) {
         setSelected([...selected, value])
       } else if (!checked && isSelected) {
         setSelected(selected.filter(i => i !== value))
       }
-    }
+    },
+    [selected],
+  )
 
-    const selectAll = e => {
-      const { checked } = e.target
+  const selectAll = useCallback(
+    ({ checked }) => {
       if (checked) {
-        setSelected(data.map(i => i[rowKey]))
+        setSelected(selectableData.current)
       } else {
         setSelected([])
       }
+    },
+    [],
+  )
+
+  const _columns = useEnhancedColumns(
+    { rowKey, ...props },
+    {
+      selected,
+      allSelected,
+      onSelect: select,
+      onSelectAll: selectAll,
+    },
+  )
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+    } else {
+      onSelectionChange && onSelectionChange(selected)
     }
+  }, [onSelectionChange, selected])
 
-    useEffect(() => {
-      if (isFirstRender.current) {
-        isFirstRender.current = false
-      } else {
-        onSelectionChange(selected)
-      }
-    }, [onSelectionChange, selected])
-
-
-    return (
-      <AutoResizer>
-        {({ width, height }) => (
-          <BaseTable
-            width={width}
-            height={height}
-            data={data}
-            rowKey={rowKey}
-            {...props}
-            ref={ref}
-          >
-            {selectable && (
-              <SelectionColumn
-                dataKey={rowKey}
-                selected={selected}
-                allSelected={allSelected}
-                onSelect={select}
-                onSelectAll={selectAll}
-              />
-            )}
-            {children}
-          </BaseTable>
-        )}
-      </AutoResizer>
-    )
-  },
-)
+  return (
+    <AutoResizer>
+      {({ width, height }) => (
+        <BaseTable
+          width={width}
+          height={height}
+          data={data}
+          rowKey={rowKey}
+          columns={_columns}
+          {...tableProps}
+          ref={ref}
+        />
+      )}
+    </AutoResizer>
+  )
+})
 
 export default Table
