@@ -11,6 +11,7 @@ import useSelectionCheckbox from './useSelectionCheckbox'
 import { IconArrowDown, IconArrowUp } from '@tabler/icons'
 import { useEffect, useRef } from 'react'
 import Pagination from '../pagination'
+import HeaderCell from './HeaderCell'
 
 const TableConsumer = () => {
   const { data, columns, options } = useTableContext()
@@ -24,6 +25,7 @@ const TableConsumer = () => {
     onPageChange,
     defaultFilters,
     onFilter,
+    stickyHeader,
     ...opts
   } = options
 
@@ -126,15 +128,15 @@ const TableConsumer = () => {
 
   return (
     <div tw='shadow border-b border-gray-200 sm:rounded-lg my-8 w-full overflow-hidden'>
-      <table tw='w-full divide-y divide-gray-200' {...getTableProps()}>
+      <table tw='w-full divide-y divide-gray-200 relative border-collapse' {...getTableProps()}>
         <thead tw='bg-gray-50'>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th
+                <HeaderCell
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   scope='col'
-                  tw='px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider'
+                  sticky={stickyHeader}
                 >
                   <div tw='flex items-center'>
                     {column.render('Header')}
@@ -148,7 +150,7 @@ const TableConsumer = () => {
                       ''
                     )}
                   </div>
-                </th>
+                </HeaderCell>
               ))}
             </tr>
           ))}

@@ -18,6 +18,7 @@ const Home = () => {
           rowKey='id'
           selectable
           defaultSort={['name']}
+          stickyHeader
         >
           <Column dataKey='name' header='Name' sortable />
           <Column dataKey='email' header='Email'>
