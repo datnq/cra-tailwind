@@ -23,7 +23,7 @@ const modalReducer = (modal, action) => {
   return modal
 }
 
-export const ModalProvider = ({
+const ModalProvider = ({
   component: ModalComponent,
   children,
   options = {},
@@ -41,3 +41,5 @@ export const ModalProvider = ({
     </ModalContext.Provider>
   )
 }
+
+export default ModalProvider

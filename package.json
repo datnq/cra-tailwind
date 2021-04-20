@@ -36,6 +36,7 @@
     "react-router-dom": "^5.2.0",
     "react-screentype-hook": "^1.0.17",
     "react-scripts": "^4.0.3",
+    "react-table": "^7.6.3",
     "react-use": "^17.2.3",
     "react-use-calendar": "^1.0.0",
     "react-useportal": "^1.0.14",

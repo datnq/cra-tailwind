@@ -1,9 +1,9 @@
 import tw from 'twin.macro'
 import clsx from 'clsx'
 import { useRef } from 'react'
-import { useModal } from './useModal'
+import useModal from './useModal'
 
-export const useDialog = () => {
+const useDialog = () => {
   const modal = useModal()
 
   const DefaultButton = modal.get('defaultButton')
@@ -79,3 +79,5 @@ export const useDialog = () => {
 
   return { confirm, alert }
 }
+
+export default useDialog

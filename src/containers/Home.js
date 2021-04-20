@@ -1,10 +1,9 @@
 import tw from 'twin.macro'
-import Centerized from '../components/centerized'
 import Layout from '../layouts/DefaultLayout'
 import useAPI from '../api/useAPI'
 import { useQuery } from 'react-query'
-import Table from '../components/table'
-import { Column } from 'react-base-table'
+import Table, { Column } from '../components/table'
+import { Link } from '../components/link'
 
 const Home = () => {
   const { sample } = useAPI()
@@ -13,10 +12,19 @@ const Home = () => {
 
   return (
     <Layout title='Doing Now'>
-      <Table data={data} selectable>
-        <Column key='name' dataKey='name' width={0} flexGrow={300} title='Name' />
-        <Column key='dataKey' dataKey='email' width={0} flexGrow={300} title='Email' />
-      </Table>
+      <section tw='mx-8 h-full'>
+        <Table
+          data={data}
+          rowKey='id'
+          selectable
+          defaultSort={['name']}
+        >
+          <Column dataKey='name' header='Name' sortable />
+          <Column dataKey='email' header='Email'>
+            {data => <Link href={`mailto:${data.value}`}>{data.value}</Link>}
+          </Column>
+        </Table>
+      </section>
     </Layout>
   )
 }

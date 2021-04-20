@@ -19,7 +19,7 @@ const Nav = tw.nav`
 `
 
 const Main = tw.main`
-  flex-grow
+  flex-grow flex flex-col
 `
 
 const Layout = ({ children, title, ...rest }) => {

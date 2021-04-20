@@ -3,8 +3,7 @@ import { forwardRef } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter } from 'react-router-dom'
 import Button from '../button'
-import { Modal } from '../modal/Modal'
-import { ModalProvider } from '../modal/ModalProvider'
+import Modal, { ModalProvider } from '../modal'
 
 const queryClient = new QueryClient()
 

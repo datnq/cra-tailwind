@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 import { Dialog, Transition } from '@headlessui/react'
 import { IconAlertTriangle, IconCircleCheck, IconInfoCircle } from '@tabler/icons'
 import { Fragment, useEffect, useRef, useState } from 'react'
-import { useModal } from './useModal'
+import useModal from './useModal'
 
 const variantIcons = {
   default: null,
@@ -12,7 +12,7 @@ const variantIcons = {
   success: <IconCircleCheck tw='stroke-current text-green-500 mr-2' />
 }
 
-export const Modal = ({ onClose }) => {
+const Modal = ({ onClose }) => {
   const modal = useModal()
   const { show, title, id, content, footer, variant } = modal.get() || {}
 
@@ -84,3 +84,5 @@ export const Modal = ({ onClose }) => {
     </Transition>
   )
 }
+
+export default Modal

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { ModalContext } from './ModalProvider'
 
-export const useModal = (options = {}) => {
+const useModal = (options = {}) => {
   const [modal, dispatch] = useContext(ModalContext)
 
   const get = (key) => key ? modal[key] : modal
@@ -17,3 +17,4 @@ export const useModal = (options = {}) => {
   return { get, show, hide }
 }
 
+export default useModal
