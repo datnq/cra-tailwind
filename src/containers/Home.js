@@ -4,11 +4,19 @@ import useAPI from '../api/useAPI'
 import { useQuery } from 'react-query'
 import Table, { Column } from '../components/table'
 import { Link } from '../components/link'
+import toast from 'react-hot-toast'
+import { useEffect } from 'react'
 
 const Home = () => {
   const { sample } = useAPI()
 
   const { data } = useQuery('users', sample.get)
+
+  useEffect(() => {
+    setTimeout(() => {
+      toast('Beautiful UI components by the creators of Tailwind CSS')
+    }, 2000)
+  }, [])
 
   return (
     <Layout title='Doing Now'>

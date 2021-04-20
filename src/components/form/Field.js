@@ -13,7 +13,16 @@ const FieldControl = styled.div`
 
 const Field = forwardRef(
   (
-    { label, controlId, component: Component = Input, control, name, ...props },
+    {
+      label,
+      controlId,
+      error,
+      errorMessage,
+      component: Component = Input,
+      control,
+      name,
+      ...props
+    },
     ref,
   ) => {
     const id = useFieldId(controlId)
@@ -37,6 +46,7 @@ const Field = forwardRef(
             <Component id={id} name={name} {...props} ref={ref} />
           )}
         </FieldControl>
+        {error && <p tw='text-sm text-negative'>{errorMessage}</p>}
       </div>
     )
   },

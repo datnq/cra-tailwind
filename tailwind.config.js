@@ -18,6 +18,7 @@ module.exports = {
         commentary: colors.gray[300],
         line: colors.gray[300],
         lineDarker: colors.gray[400],
+        negative: colors.red[700]
       },
     },
   },
