@@ -1,8 +1,7 @@
 import { Route, Switch } from 'react-router'
-import { Toaster } from 'react-hot-toast';
 import AppProvider from './components/app/AppProvider'
 import Home from './containers/Home'
-import Toasts from './components/toasts';
+import Toasts from './components/toasts/Toasts';
 
 function App() {
   return (

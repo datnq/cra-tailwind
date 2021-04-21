@@ -1,22 +1,8 @@
 import tw from 'twin.macro'
 import { Dialog, Transition } from '@headlessui/react'
-import {
-  IconAlertTriangle,
-  IconCircleCheck,
-  IconInfoCircle,
-} from '@tabler/icons'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import useModal from './useModal'
-
-export const variantIcons = {
-  default: null,
-  blank: <IconInfoCircle tw='stroke-current text-blue-500 mr-4 flex-shrink-0' />,
-  info: <IconInfoCircle tw='stroke-current text-blue-500 mr-4 flex-shrink-0' />,
-  warning: <IconAlertTriangle tw='stroke-current text-yellow-500 mr-4 flex-shrink-0' />,
-  danger: <IconAlertTriangle tw='stroke-current text-red-500 mr-4 flex-shrink-0' />,
-  error: <IconAlertTriangle tw='stroke-current text-red-500 mr-4 flex-shrink-0' />,
-  success: <IconCircleCheck tw='stroke-current text-green-500 mr-4 flex-shrink-0' />,
-}
+import { variantIcons } from '../icon'
 
 const Modal = ({ onClose }) => {
   const modal = useModal()

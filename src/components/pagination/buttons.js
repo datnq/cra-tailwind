@@ -1,5 +1,6 @@
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons'
 import tw, { styled } from 'twin.macro'
+import Icon from '../icon'
 
 export const NavButton = styled.button`
   ${tw`
@@ -35,12 +36,12 @@ export const PrevNextButton = ({ direction, navigatePage }) => {
   return direction === 'prev' ? (
     <NavButton href='#' tw='px-2' onClick={navigatePage}>
       <span className='sr-only'>Previous</span>
-      <IconChevronLeft aria-hidden='true' size={16} />
+      <Icon icon={IconChevronLeft} />
     </NavButton>
   ) : (
     <NavButton href='#' tw='px-2' onClick={navigatePage}>
       <span className='sr-only'>Next</span>
-      <IconChevronRight size={16} aria-hidden='true' />
+      <Icon icon={IconChevronRight} />
     </NavButton>
   )
 }

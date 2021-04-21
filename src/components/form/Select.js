@@ -3,6 +3,7 @@ import { forwardRef } from 'react'
 import { IconChevronDown } from '@tabler/icons'
 import { Listbox } from '@headlessui/react'
 import { Button, Options, Option, ListItem } from './ListBox'
+import Icon from '../icon'
 
 const Select = forwardRef(({value, onChange, ...props}, ref) => {
   const selectedOption = props.options.find(o => o.value === value)
@@ -14,7 +15,7 @@ const Select = forwardRef(({value, onChange, ...props}, ref) => {
           <span tw='block flex-grow'>
             {selectedOption ? selectedOption.text : props.placeHolder}
           </span>
-          <IconChevronDown size={16} />
+          <Icon icon={IconChevronDown} />
         </Button>
         <Options>
           {props.options.map(option => (

@@ -6,6 +6,7 @@ import { Listbox } from '@headlessui/react'
 import { forwardRef } from 'react'
 import { format } from '../../lib/date'
 import { Button as SelectButton, Options, Option, ListItem } from './ListBox'
+import Icon from '../icon'
 
 const Day = styled(ListItem)`
   ${tw`w-8 h-8 p-0 rounded-full text-right flex items-center justify-center`}
@@ -27,10 +28,10 @@ const Calendar = () => {
                   {state.month} - {state.year}
                 </strong>
                 <Button type='button' onClick={actions.getPrevMonth} tw='px-2'>
-                  <IconChevronLeft size={16} />
+                  <Icon icon={IconChevronLeft} />
                 </Button>
                 <Button type='button' onClick={actions.getNextMonth} tw='px-2'>
-                  <IconChevronRight size={16} />
+                  <Icon icon={IconChevronRight} />
                 </Button>
               </div>
             </td>
@@ -69,7 +70,7 @@ const Datepicker = forwardRef(({ value, onChange }, ref) => {
       <div tw='relative'>
         <SelectButton>
           <span tw='block flex-grow'>{value && format(value)}</span>
-          <IconCalendar size={16} />
+          <Icon icon={IconCalendar} />
         </SelectButton>
         <Calendar />
       </div>

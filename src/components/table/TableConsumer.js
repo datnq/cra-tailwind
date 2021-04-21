@@ -12,6 +12,7 @@ import { IconArrowDown, IconArrowUp } from '@tabler/icons'
 import { useEffect, useRef } from 'react'
 import Pagination from '../pagination'
 import HeaderCell from './HeaderCell'
+import Icon from '../icon'
 
 const TableConsumer = () => {
   const { data, columns, options } = useTableContext()
@@ -142,9 +143,9 @@ const TableConsumer = () => {
                     {column.render('Header')}
                     {column.isSorted ? (
                       column.isSortedDesc ? (
-                        <IconArrowDown size={16} tw='ml-2' />
+                        <Icon icon={IconArrowDown} tw='ml-2' />
                       ) : (
-                        <IconArrowUp size={16} tw='ml-2' />
+                        <Icon icon={IconArrowUp} tw='ml-2' />
                       )
                     ) : (
                       ''

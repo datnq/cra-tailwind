@@ -16,9 +16,13 @@ module.exports = {
       colors: {
         primary: colors.indigo[500],
         commentary: colors.gray[300],
+        body: colors.gray[600],
         line: colors.gray[300],
         lineDarker: colors.gray[400],
-        negative: colors.red[700]
+        negative: colors.red[600],
+        positive: colors.green[600],
+        warning: colors.yellow[600],
+        info: colors.blue[600],
       },
     },
   },
@@ -26,10 +30,11 @@ module.exports = {
     extend: {
       borderColor: ['checked', 'disabled'],
       backgroundColor: ['checked', 'disabled'],
-      cursor: ['disabled']
+      cursor: ['disabled'],
     },
   },
   plugins: [
-    require('@tailwindcss/typography')
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'),
   ],
 }
