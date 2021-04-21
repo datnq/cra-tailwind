@@ -8,15 +8,15 @@ module.exports = {
     extend: {
       fontFamily: { sans: ['Nunito', 'sans-serif'] },
       gridTemplateColumns: {
-        layout: '1fr',
+        layout: '250px 1fr',
       },
       gridTemplateRows: {
-        layout: '70px 1fr',
+        layout: '1fr 70px',
       },
       colors: {
         primary: colors.indigo[500],
         commentary: colors.gray[300],
-        body: colors.gray[600],
+        body: colors.gray[800],
         line: colors.gray[300],
         lineDarker: colors.gray[400],
         negative: colors.red[600],

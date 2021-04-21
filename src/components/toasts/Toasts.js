@@ -22,7 +22,7 @@ const Toasts = () => {
 
   return (
     <div
-      tw='fixed top-8 left-1/2 -translate-x-1/2 transform max-w-sm w-full'
+      tw='fixed top-8 left-1/2 -translate-x-1/2 transform max-w-sm w-full z-20'
       onMouseEnter={startPause}
       onMouseLeave={endPause}
     >

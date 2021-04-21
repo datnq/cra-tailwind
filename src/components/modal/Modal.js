@@ -31,7 +31,7 @@ const Modal = ({ onClose }) => {
       <Dialog
         as='div'
         id={id}
-        className='fixed inset-0 z-10 overflow-y-auto text-center'
+        className='fixed inset-0 z-20 overflow-y-auto text-center'
         open={open}
         onClose={close}
         initialFocus={focusRef}
