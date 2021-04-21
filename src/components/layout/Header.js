@@ -9,7 +9,7 @@ import Nav from './Nav'
 
 const TwHeader = tw.header`
   bg-white row-span-2 sticky top-0
-  flex-col flex h-screen
+  flex-col flex h-screen rounded-r-2xl
 `
 
 const Header = () => {
@@ -31,7 +31,7 @@ const Header = () => {
             placeholder='Search...'
           />
         </div>
-        <Nav>Navigation</Nav>
+        <Nav />
         <nav tw='flex items-center justify-end'>
           <span tw='flex-grow'>
             <UnstyledButton type='button' tw='rounded-full'>

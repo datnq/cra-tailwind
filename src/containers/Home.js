@@ -8,27 +8,16 @@ import toast from 'react-hot-toast'
 import { useEffect } from 'react'
 import { PageHeader } from '../components/layout'
 
-const Home = () => {
+const Home = ({ title }) => {
   const { sample } = useAPI()
 
   const { data } = useQuery('users', sample.get)
 
-  useEffect(() => {
-    setTimeout(() => {
-      toast('Beautiful UI components by the creators of Tailwind CSS')
-    }, 2000)
-  }, [])
-
   return (
     <Layout>
-      <PageHeader title='Home Page' />
+      <PageHeader title={title} />
       <section tw='mx-8 h-full'>
-        <Table
-          data={data}
-          rowKey='id'
-          selectable
-          stickyHeader
-        >
+        <Table data={data} rowKey='id' selectable stickyHeader>
           <Column dataKey='name' header='Name' sortable />
           <Column dataKey='email' header='Email'>
             {data => <Link href={`mailto:${data.value}`}>{data.value}</Link>}

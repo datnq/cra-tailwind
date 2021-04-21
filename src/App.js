@@ -1,13 +1,19 @@
 import { Route, Switch } from 'react-router'
 import AppProvider from './components/app/AppProvider'
-import Home from './containers/Home'
-import Toasts from './components/toasts/Toasts';
+import Toasts from './components/toasts/Toasts'
+import { routes } from './containers'
 
 function App() {
   return (
     <AppProvider>
       <Switch>
-        <Route path='/' exact component={Home} />
+        {routes.map(route => (
+          <Route
+            path={route.path}
+            component={route.component}
+            exact={route.exact}
+          />
+        ))}
       </Switch>
       <Toasts />
     </AppProvider>
