@@ -10,6 +10,10 @@ import {
   useSelectionActions,
   SelectionColumn,
 } from '../components/table-plugins/selection'
+import {
+  SortableColumn,
+  useSortableActions,
+} from '../components/table-plugins/sortable'
 
 const Home = ({ title }) => {
   const { sample } = useAPI()
@@ -20,7 +24,7 @@ const Home = ({ title }) => {
     selected: ['1'],
   })
 
-  const tablePlugins = { useSelectionActions }
+  const tablePlugins = { useSelectionActions, useSortableActions }
 
   return (
     <Layout>
@@ -35,8 +39,7 @@ const Home = ({ title }) => {
           plugins={tablePlugins}
         >
           <SelectionColumn dataKey='id' />
-          <Column dataKey='id' header='ID' sortable />
-          <Column dataKey='name' header='Name' sortable />
+          <SortableColumn dataKey='name' headerLabel='Name' />
           <Column
             dataKey='email'
             header='Email'

@@ -29,7 +29,7 @@ const Table = ({
   }, [initialState])
 
   const childCount = useMemo(() => Children.count(children), [children])
-  const mountedFinish = useMemo(() => childCount === columns.length, [
+  const mountedFinish = useMemo(() => childCount && childCount === columns.length, [
     childCount,
     columns.length,
   ])
