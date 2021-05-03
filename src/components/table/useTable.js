@@ -2,9 +2,9 @@ import { useContext } from 'react'
 import { TableContext } from './Table'
 
 const useTable = () => {
-  const { data, columns, options, state } = useContext(TableContext)
+  const { data, columns, options } = useContext(TableContext)
 
-  return { data, columns, options, state }
+  return { data, columns, options }
 }
 
 export default useTable

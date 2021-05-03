@@ -1,12 +1,8 @@
-import { useContext } from 'react'
-import { tableStateActions } from './reducer'
-import { TableContext } from './Table'
+import useTableState from '../../table/useTableState'
 
 const useSelectionActions = () => {
-  const {
-    state: { selected = [] },
-    dispatchState,
-  } = useContext(TableContext)
+  const { state = {}, setState } = useTableState()
+  const { selected = [] } = state
 
   const actions = {
     isSelected(id) {
@@ -18,16 +14,20 @@ const useSelectionActions = () => {
       return ids.every(id => actions.isSelected(id))
     },
     select(id) {
-      dispatchState({ type: tableStateActions.SELECT, payload: id.toString() })
+      if (!actions.isSelected(id)) {
+        setState({ ...state, selected: [...selected, id.toString()] })
+      }
     },
     deselect(id) {
-      dispatchState({
-        type: tableStateActions.DESELECT,
-        payload: id.toString(),
-      })
+      if (actions.isSelected(id)) {
+        setState({
+          ...state,
+          selected: selected.filter(i => i !== id.toString()),
+        })
+      }
     },
     forceSelect(ids) {
-      dispatchState({ type: tableStateActions.FORCESELECT, payload: ids })
+      setState({ ...state, selected: ids })
     },
   }
   return { ...actions }

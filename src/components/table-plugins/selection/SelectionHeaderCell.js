@@ -1,10 +1,12 @@
 import tw from 'twin.macro'
 import { useMemo } from 'react'
-import { Checkbox } from '../form'
-import useTable from './useTable'
-import useSelectionActions from './useSelectionActions'
+import { Checkbox } from '../../form'
+import useTable from '../../table/useTable'
+import usePlugins from '../../table/usePlugins'
 
 const SelectionHeaderCell = ({ column }) => {
+  const { useSelectionActions } = usePlugins()
+  
   const { isAllSelected, forceSelect } = useSelectionActions()
   const {
     data,

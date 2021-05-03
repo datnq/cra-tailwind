@@ -1,4 +1,4 @@
-import Column from './Column'
+import Column from '../../table/Column'
 import SelectionCell from './SelectionCell'
 import SelectionHeaderCell from './SelectionHeaderCell'
 

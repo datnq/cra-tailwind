@@ -1,11 +1,15 @@
 import tw from 'twin.macro'
-import Layout from '../layouts/DefaultLayout'
-import useAPI from '../api/useAPI'
-import { useQuery } from 'react-query'
-import Table, { Column, SelectionColumn } from '../components/table'
-import Link from '../components/link'
-import { PageHeader } from '../components/layout'
 import { useState } from 'react'
+import { useQuery } from 'react-query'
+import useAPI from '../api/useAPI'
+import Layout from '../layouts/DefaultLayout'
+import { PageHeader } from '../components/layout'
+import Link from '../components/link'
+import Table, { Column } from '../components/table'
+import {
+  useSelectionActions,
+  SelectionColumn,
+} from '../components/table-plugins/selection'
 
 const Home = ({ title }) => {
   const { sample } = useAPI()
@@ -15,6 +19,8 @@ const Home = ({ title }) => {
   const [state, setState] = useState({
     selected: ['1'],
   })
+
+  const tablePlugins = { useSelectionActions }
 
   return (
     <Layout>
@@ -26,6 +32,7 @@ const Home = ({ title }) => {
           stickyHeader
           initialState={state}
           onStateChange={setState}
+          plugins={tablePlugins}
         >
           <SelectionColumn dataKey='id' />
           <Column dataKey='id' header='ID' sortable />
