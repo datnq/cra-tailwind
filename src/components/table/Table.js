@@ -5,7 +5,6 @@ import {
   useLayoutEffect,
   useMemo,
   useReducer,
-  useState,
 } from 'react'
 import { useFirstMountState } from 'react-use'
 import { columnsReducer, tableStateActions, tableStateReducer } from './reducer'

@@ -1,7 +1,5 @@
-import { cloneElement, createElement, useEffect } from 'react'
+import { useEffect } from 'react'
 import useTableColumns from './useTableColumns'
-
-const defaultCell = ({ value }) => <>{value}</>
 
 const Column = ({ dataKey, children, sortKey, sortDirection, id, ...opts }) => {
   const [columns, addColumn] = useTableColumns()
