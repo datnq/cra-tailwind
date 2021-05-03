@@ -1,22 +1,27 @@
-import { useEffect } from 'react'
+import { cloneElement, createElement, useEffect } from 'react'
 import useTableColumns from './useTableColumns'
 
-const Column = ({ dataKey, header, children, sortable, ...opts }) => {
+const defaultCell = ({ value }) => <>{value}</>
+
+const Column = ({ dataKey, children, sortKey, sortDirection, id, ...opts }) => {
   const [columns, addColumn] = useTableColumns()
 
   useEffect(() => {
-    if (columns.every(col => col.id !== dataKey)) {
-      const props = {
-        accessor: dataKey,
-        id: dataKey,
-        Header: header,
-        disableSortBy: !sortable,
-        ...opts
-      }
-      if (children) props.Cell = children
-      addColumn(props)
+    const colId = id || dataKey
+    const sorted = {
+      sortBy: sortKey || dataKey,
+      direction: sortDirection || 'asc',
     }
-  }, [addColumn, children, columns, dataKey, header, opts, sortable])
+    if (columns.every(col => col.id !== colId)) {
+      addColumn({
+        id: colId,
+        dataKey,
+        sorted,
+        cell: children,
+        ...opts,
+      })
+    }
+  }, [addColumn, children, columns, dataKey, id, opts, sortDirection, sortKey])
 
   return null
 }

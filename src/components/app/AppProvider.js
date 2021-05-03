@@ -14,17 +14,16 @@ const DefaultButton = forwardRef((props, ref) => (
   <Button tw='w-24' {...props} ref={ref} />
 ))
 
+const modalOpts = {
+  defaultButton: DefaultButton,
+  primaryButton: PrimaryButton,
+}
+
 const AppProvider = props => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ModalProvider
-          options={{
-            defaultButton: DefaultButton,
-            primaryButton: PrimaryButton,
-          }}
-          component={Modal}
-        >
+        <ModalProvider options={modalOpts} component={Modal}>
           {props.children}
         </ModalProvider>
       </BrowserRouter>

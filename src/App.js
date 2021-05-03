@@ -9,6 +9,7 @@ function App() {
       <Switch>
         {routes.map(route => (
           <Route
+            key={route.name}
             path={route.path}
             component={route.component}
             exact={route.exact}
