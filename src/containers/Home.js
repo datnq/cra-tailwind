@@ -24,7 +24,7 @@ const Home = ({ title }) => {
           data={data}
           rowKey='id'
           stickyHeader
-          state={state}
+          initialState={state}
           onStateChange={setState}
         >
           <SelectionColumn dataKey='id' />

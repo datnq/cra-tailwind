@@ -1,9 +1,9 @@
 import tw from 'twin.macro'
 import { Checkbox } from '../form'
-import useTableState from './useTableState'
+import useSelectionActions from './useSelectionActions'
 
 const SelectionCell = ({ value = '' }) => {
-  const [, { isSelected, select, deselect }] = useTableState('selected')
+  const { isSelected, select, deselect } = useSelectionActions()
 
   const selectionChange = e => {
     const { checked, value } = e.target || {}

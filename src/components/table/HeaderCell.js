@@ -24,7 +24,6 @@ const SortIcon = ({ sortBy, direction, sortKey }) => {
 
 const HeaderCell = ({ column }) => {
   const { sortable, sorted, sortKey, header } = column
-  console.log(isValidElement(header))
   return (
     <Th>
       <div tw='flex items-center'>

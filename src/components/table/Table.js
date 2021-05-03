@@ -8,33 +8,23 @@ import {
   useState,
 } from 'react'
 import { useFirstMountState } from 'react-use'
+import { columnsReducer, tableStateActions, tableStateReducer } from './reducer'
 import TableConsumer from './TableConsumer'
 
 export const TableContext = createContext()
 
-const columnsReducer = (columns, action) => {
-  const { type, column, index } = action
-  if (type === 'add') {
-    return [...columns, column]
-  } else if (type === 'update') {
-    columns[index] === column
-    return [...columns]
-  }
-}
-
 const Table = ({
   data = [],
   children,
-  state: initialState,
+  initialState,
   onStateChange,
   ...options
 }) => {
   const [columns, dispatchColumns] = useReducer(columnsReducer, [])
-
-  const [state, setState] = useState(initialState)
+  const [state, dispatchState] = useReducer(tableStateReducer, initialState)
 
   useLayoutEffect(() => {
-    setState(initialState)
+    dispatchState({ type: tableStateActions.INIT, payload: initialState })
   }, [initialState])
 
   const childCount = useMemo(() => Children.count(children), [children])
@@ -53,7 +43,7 @@ const Table = ({
 
   return (
     <TableContext.Provider
-      value={{ data, columns, options, state, setState, dispatchColumns }}
+      value={{ data, columns, options, state, dispatchState, dispatchColumns }}
     >
       {mountedFinish && <TableConsumer />}
       {children}
