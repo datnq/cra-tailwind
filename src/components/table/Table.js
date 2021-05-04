@@ -18,7 +18,6 @@ const Table = ({
   children,
   initialState,
   onStateChange,
-  plugins,
   ...options
 }) => {
   const [columns, dispatchColumns] = useReducer(columnsReducer, [])
@@ -43,7 +42,7 @@ const Table = ({
 
   return (
     <TableContext.Provider
-      value={{ data, columns, options, state, setState, plugins, dispatchColumns }}
+      value={{ data, columns, options, state, setState, dispatchColumns }}
     >
       {mountedFinish && <TableConsumer />}
       {children}

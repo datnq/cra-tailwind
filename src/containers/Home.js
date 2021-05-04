@@ -6,14 +6,8 @@ import Layout from '../layouts/DefaultLayout'
 import { PageHeader } from '../components/layout'
 import Link from '../components/link'
 import Table, { Column } from '../components/table'
-import {
-  useSelectionActions,
-  SelectionColumn,
-} from '../components/table-plugins/selection'
-import {
-  SortableColumn,
-  useSortableActions,
-} from '../components/table-plugins/sortable'
+import { SelectionColumn } from '../components/table-plugins/selection'
+import { SortableColumn } from '../components/table-plugins/sortable'
 
 const Home = ({ title }) => {
   const { sample } = useAPI()
@@ -23,8 +17,6 @@ const Home = ({ title }) => {
   const [state, setState] = useState({
     selected: ['1'],
   })
-
-  const tablePlugins = { useSelectionActions, useSortableActions }
 
   return (
     <Layout>
@@ -36,7 +28,6 @@ const Home = ({ title }) => {
           stickyHeader
           initialState={state}
           onStateChange={setState}
-          plugins={tablePlugins}
         >
           <SelectionColumn dataKey='id' />
           <SortableColumn dataKey='name' headerLabel='Name' />

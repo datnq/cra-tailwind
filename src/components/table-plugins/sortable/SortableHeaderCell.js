@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 import { IconArrowDown, IconArrowUp } from '@tabler/icons'
 import Icon from '../../icon'
-import usePlugins from '../../table/usePlugins'
+import useSortableActions from './useSortableActions'
 
 const SortIcon = ({ sortBy, sortDirection, sortKey }) => {
   if (!sortBy || sortBy !== sortKey) return null
@@ -13,8 +13,7 @@ const SortIcon = ({ sortBy, sortDirection, sortKey }) => {
   )
 }
 
-const SelectionHeaderCell = ({ column, sortKey, children }) => {
-  const { useSortableActions } = usePlugins()
+const SelectionHeaderCell = ({ sortKey, children }) => {
   const { sorted, sort } = useSortableActions()
 
   const sortClick = () => {
