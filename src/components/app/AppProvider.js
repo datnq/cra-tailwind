@@ -1,5 +1,5 @@
 import tw from 'twin.macro'
-import { forwardRef } from 'react'
+import { createContext, forwardRef, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter } from 'react-router-dom'
 import Button from '../button'
@@ -19,14 +19,19 @@ const modalOpts = {
   primaryButton: PrimaryButton,
 }
 
+export const AppContext = createContext()
+
 const AppProvider = props => {
+  const [uploadQueue, setUploadQueue] = useState([])
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <ModalProvider options={modalOpts} component={Modal}>
-          {props.children}
-        </ModalProvider>
-      </BrowserRouter>
+      <AppContext.Provider value={{ uploadQueue, setUploadQueue }}>
+        <BrowserRouter>
+          <ModalProvider options={modalOpts} component={Modal}>
+            {props.children}
+          </ModalProvider>
+        </BrowserRouter>
+      </AppContext.Provider>
     </QueryClientProvider>
   )
 }
