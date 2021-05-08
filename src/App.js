@@ -1,20 +1,16 @@
+import { Suspense } from 'react'
 import { Route, Switch } from 'react-router'
 import AppProvider from './components/app/AppProvider'
 import Toasts from './components/toasts/Toasts'
-import { routes } from './containers'
+import AuthCallback from './containers/AuthCallback'
+import PrivateRoute from './containers/PrivateRoute'
 
 function App() {
   return (
     <AppProvider>
       <Switch>
-        {routes.map(route => (
-          <Route
-            key={route.name}
-            path={route.path}
-            component={route.component}
-            exact={route.exact}
-          />
-        ))}
+        <Route path='/' exact component={PrivateRoute} />
+        <Route path='/auth/callback' exact component={AuthCallback} />
       </Switch>
       <Toasts />
     </AppProvider>

@@ -1,4 +1,4 @@
-import { IconHome, IconPackage } from '@tabler/icons'
+import { IconHome } from '@tabler/icons'
 import Icon from '../components/icon'
 import Home from './Home'
 
@@ -10,13 +10,6 @@ const routes = [
     path: '/',
     exact: true,
     component: props => <Home title='Home Page' {...props} />,
-  },
-  {
-    name: 'product',
-    label: 'Product',
-    icon: props => <Icon icon={IconPackage} size={20} {...props} />,
-    path: '/products',
-    component: props => <Home title='Product Page' {...props} />,
   },
 ]
 
