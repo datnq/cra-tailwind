@@ -1,34 +1,66 @@
 import { useEffect } from 'react'
-import { codeVerifier } from '../lib/pkce'
+import { codeChallenger, codeVerifier } from '../lib/pkce'
+import { atom, useAtom } from 'jotai'
+import { tokenAtom } from '../api/state'
+import { authConfig } from '../config'
+import QueryString from 'qs'
 
-const { useAtom } = require('jotai')
-const { tokenAtom, verifierAtom } = require('../api/state')
-const { default: useAPI } = require('../api/useAPI')
+const authURL = (path, params = {}) => {
+  return (
+    authConfig.baseURL +
+    '/' +
+    path +
+    QueryString.stringify(params, { addQueryPrefix: true })
+  )
+}
+
+const authAPIAtom = atom(get => {
+  const token = get(tokenAtom)
+  return {
+    isAutheticated() {
+      return !!token
+    },
+    async authorize() {
+      const verifier = codeVerifier()
+      const method = authConfig.challengeMethod
+      const url = authURL('authorize', {
+        response_type: 'code',
+        client_id: authConfig.clientID,
+        redirect_uri: authConfig.redirectURL,
+        code_challenge: await codeChallenger(verifier, method),
+        code_challenge_method: method,
+        state: verifier,
+        scope: 'openid',
+      })
+
+      window.location.href = url
+    },
+    async token() {
+      const urlParams = new URLSearchParams(window.location.search)
+      const code = urlParams.get('code')
+      const verifier = urlParams.get('state')
+
+      const params = new URLSearchParams()
+      params.append('client_id', authConfig.clientID)
+      params.append('client_secret', authConfig.clientSecret)
+      params.append('grant_type', 'authorization_code')
+      params.append('code', code)
+      params.append('redirect_uri', authConfig.redirectURL)
+      params.append('code_verifier', verifier)
+
+      return fetch(authURL('token'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: params.toString(),
+      }).then(response => response.json())
+    },
+  }
+})
 
 const useAuth = () => {
-  const [token] = useAtom(tokenAtom)
-  const [verifier, setVerifier] = useAtom(verifierAtom)
-
-  const { authAPI } = useAPI()
-
-  useEffect(() => {
-    if (!token && !verifier) {
-      setVerifier(codeVerifier())
-    }
-  }, [setVerifier, token, verifier])
-
-  useEffect(() => {
-    if (!token && verifier) {
-      authAPI.authorize(verifier)
-    }
-  })
-
-  useEffect(() => {
-    if (token) {
-      setVerifier(null)
-    }
-  })
-
-  return { token, verifier }
+  const [authAPI] = useAtom(authAPIAtom)
+  return authAPI
 }
 export default useAuth

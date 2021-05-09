@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { Route, Switch } from 'react-router'
 import AppProvider from './components/app/AppProvider'
 import Toasts from './components/toasts/Toasts'

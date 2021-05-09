@@ -1,21 +1,19 @@
 import { Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
+import useAutheticated from '../hooks/useAutheticated'
 import routes from './routes'
 
 const PrivateRoute = () => {
-  const { token } = useAuth()
+  useAutheticated(auth => auth.authorize())
 
   return (
-    token && (
-      <Switch>
-        {routes.map(route => (
-          <Route key={route.name} path={route.path} exact={!!route.exact}>
-            {route.children}
-          </Route>
-        ))}
-      </Switch>
-    )
+    <Switch>
+      {routes.map(route => (
+        <Route key={route.name} path={route.path} exact={!!route.exact}>
+          {route.children}
+        </Route>
+      ))}
+    </Switch>
   )
 }
 
