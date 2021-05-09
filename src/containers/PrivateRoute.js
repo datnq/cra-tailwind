@@ -1,5 +1,5 @@
-import { Suspense, useEffect } from 'react'
-import { Route } from 'react-router'
+import { Suspense } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import routes from './routes'
 
@@ -7,17 +7,15 @@ const PrivateRoute = () => {
   const { token } = useAuth()
 
   return (
-    <>
-      {token &&
-        routes.map(route => (
-          <Route
-            key={route.name}
-            path={route.path}
-            component={route.component}
-            exact={route.exact}
-          />
+    token && (
+      <Switch>
+        {routes.map(route => (
+          <Route key={route.name} path={route.path} exact={!!route.exact}>
+            {route.children}
+          </Route>
         ))}
-    </>
+      </Switch>
+    )
   )
 }
 

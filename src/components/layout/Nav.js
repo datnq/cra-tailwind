@@ -3,29 +3,27 @@ import { NavLink as RouterLink } from 'react-router-dom'
 import routes from '../../containers/routes'
 
 const NavLink = styled(RouterLink)`
-  ${tw`px-3 py-2 hover:bg-gray-100 rounded-lg flex mb-2 space-x-2 items-center text-gray-600 text-sm`}
-  & > svg {
-    ${tw`text-body`}
-  }
+  ${tw`py-4 px-6 hover:bg-gray-100 flex mb-2 space-x-4 items-center 
+    text-gray-600 text-sm
+  `}
   &.active {
-    ${tw`bg-gray-200 font-bold text-body`}
-    & > svg {
-      ${tw`text-primary`}
-    }
+    ${tw`font-bold text-primary bg-gray-100`}
   }
 `
 
 const Nav = () => {
   return (
-    <nav tw='flex-grow my-4'>
-      {routes.map(route => {
-        const Icon = route.icon
-        return (
-          <NavLink key={route.name} to={route.path} exact={route.exact}>
-            <Icon /> <span>{route.label}</span>
-          </NavLink>
-        )
-      })}
+    <nav tw='flex-grow'>
+      {routes
+        .filter(route => !!route.menu)
+        .map(route => {
+          const Icon = route.icon
+          return (
+            <NavLink key={route.name} to={route.path} exact={route.exact}>
+              <Icon /><span>{route.menu}</span>
+            </NavLink>
+          )
+        })}
     </nav>
   )
 }

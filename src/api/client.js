@@ -23,6 +23,9 @@ const authClient = axios.create({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
+  params: {
+    nsfw: true,
+  },
 })
 authClient.interceptors.response.use(response => response.data)
 

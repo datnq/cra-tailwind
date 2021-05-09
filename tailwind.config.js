@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       fontFamily: { sans: ['Nunito', 'sans-serif'] },
       gridTemplateColumns: {
-        layout: '250px 1fr',
+        layout: '200px 1fr',
       },
       gridTemplateRows: {
         layout: '1fr 70px',

@@ -9,7 +9,7 @@ function App() {
   return (
     <AppProvider>
       <Switch>
-        <Route path='/' exact component={PrivateRoute} />
+        <Route path='/' component={PrivateRoute} />
         <Route path='/auth/callback' exact component={AuthCallback} />
       </Switch>
       <Toasts />
