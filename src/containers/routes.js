@@ -10,12 +10,12 @@ const routes = [
     icon: props => <Icon icon={IconHome} size={20} {...props} />,
     path: '/',
     exact: true,
-    children: <Home title='Home Page' />,
+    component: Home,
   },
   {
     name: 'anime-details',
     path: '/anime/:id',
-    children: <Details />,
+    component: Details,
     exact: false,
   },
 ]

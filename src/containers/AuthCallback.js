@@ -1,28 +1,24 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { tokenAtom, verifierAtom } from '../api/state'
-import useAPI from '../api/useAPI'
-import useQuery from '../hooks/useQuery'
+import { tokenAtom } from '../api/state'
+import useAuth from '../hooks/useAuth'
 
 const AuthCallback = () => {
-  const query = useQuery()
-  const code = query.get('code')
+  const { isAutheticated, token: getToken } = useAuth()
 
   const [token, setToken] = useAtom(tokenAtom)
-  const [verifier] = useAtom(verifierAtom)
-  const { authAPI } = useAPI()
-  
+
   const history = useHistory()
-  console.log(code, verifier)
 
   useEffect(() => {
-    if (code && verifier) {
-      authAPI.token(code, verifier).then(data => {
-        setToken(data)
+    if (!isAutheticated()) {
+      getToken().then(response => {
+        if (response.access_token) setToken(response)
+        else console.log(response)
       })
     }
-  }, [authAPI, code, setToken, verifier])
+  }, [getToken, isAutheticated, setToken])
 
   useEffect(() => {
     if (token) {

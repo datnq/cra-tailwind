@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
 import { codeChallenger, codeVerifier } from '../lib/pkce'
 import { atom, useAtom } from 'jotai'
 import { tokenAtom } from '../api/state'
-import { authConfig } from '../config'
+import { authConfig, appConfig } from '../config'
 import QueryString from 'qs'
 
 const authURL = (path, params = {}) => {
@@ -14,8 +13,18 @@ const authURL = (path, params = {}) => {
   )
 }
 
+const proxyURL = (path, params = {}) => {
+  return (
+    appConfig.authProxy +
+    '/' +
+    path +
+    QueryString.stringify(params, { addQueryPrefix: true })
+  )
+}
+
 const authAPIAtom = atom(get => {
   const token = get(tokenAtom)
+  // console.log(token)
   return {
     isAutheticated() {
       return !!token
@@ -41,14 +50,12 @@ const authAPIAtom = atom(get => {
       const verifier = urlParams.get('state')
 
       const params = new URLSearchParams()
-      params.append('client_id', authConfig.clientID)
-      params.append('client_secret', authConfig.clientSecret)
       params.append('grant_type', 'authorization_code')
       params.append('code', code)
       params.append('redirect_uri', authConfig.redirectURL)
       params.append('code_verifier', verifier)
 
-      return fetch(authURL('token'), {
+      return fetch(proxyURL('token'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

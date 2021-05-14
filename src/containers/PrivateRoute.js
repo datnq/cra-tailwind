@@ -9,9 +9,12 @@ const PrivateRoute = () => {
   return (
     <Switch>
       {routes.map(route => (
-        <Route key={route.name} path={route.path} exact={!!route.exact}>
-          {route.children}
-        </Route>
+        <Route
+          key={route.name}
+          path={route.path}
+          exact={!!route.exact}
+          component={route.component}
+        />
       ))}
     </Switch>
   )
