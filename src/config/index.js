@@ -2,6 +2,7 @@ import authConfig from './auth'
 
 const appConfig = {
   publicUrl: process.env.REACT_APP_PUBLIC_URL,
+  apiURL: process.env.REACT_APP_PUBLIC_URL + '/api',
   authCallback: process.env.REACT_APP_AUTH_CALLBACK_URL,
   authProxy: process.env.REACT_APP_AUTH_PROXY,
 }

@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             Int    @id @default(autoincrement())
+  authId         String    @unique
+  email          String?   @unique
+  lastLoggedIn   DateTime?
+  dateRegistered DateTime? @default(now())
+  createdPages   Page[]    @relation("Page_createdByToUser")
+  modifiedPages  Page[]    @relation("Page_modifiedByToUser")
+}
+
+model Page {
+  id           Int    @id @default(autoincrement())
+  slug         String    @unique
+  title        String
+  description  String?
+  image        String?
+  layout       String?
+  dateCreated  DateTime? @default(now())
+  createdById  Int?
+  createdBy    User?     @relation("Page_createdByToUser", references: [id], fields: [createdById])
+  modifiedById Int?
+  modifiedBy   User?     @relation("Page_modifiedByToUser", references: [id], fields: [modifiedById])
+  dateModified DateTime? @updatedAt
+  sections     Section[]
+}
+
+model Section {
+  id           Int        @id @default(autoincrement())
+  slug         String        @unique
+  type         String
+  title        String?
+  subtitle     String?
+  description  String?       @db.Text
+  background   String?
+  image        String?
+  layout       String?
+  headerStyle  Json?
+  contentStyle Json?
+  imageStyle   Json?
+  dateCreated  DateTime?     @default(now())
+  createdById  Int?
+  dateModified DateTime?     @updatedAt
+  modifiedById Int?
+  pages        Page[]
+  items        SectionItem[] @relation("SectionItem_sectionToSection")
+}
+
+model SectionItem {
+  id           Int   @id @default(autoincrement())
+  slug         String   @unique
+  title        String
+  subtitle     String?
+  description  String?
+  icon         String?
+  layout       String?
+  headerStyle  Json?
+  contentStyle Json?
+  imageStyle   Json?
+  sectionId    Int?
+  section      Section? @relation("SectionItem_sectionToSection", references: [id], fields: [sectionId])
+}

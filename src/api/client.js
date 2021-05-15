@@ -2,7 +2,7 @@ import axios from 'axios'
 import config from '../config'
 
 const client = axios.create({
-  baseURL: config.mal.apiURL,
+  baseURL: config.app.apiURL,
   headers: {
     'content-type': 'application/json',
     accept: 'application/json',

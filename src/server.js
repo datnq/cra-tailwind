@@ -2,8 +2,6 @@ const Fastify = require('fastify')
 const { omit } = require('lodash')
 const server = Fastify()
 
-require('dotenv').config()
-
 server.register(require('fastify-http-proxy'), {
   upstream: process.env.REACT_APP_AUTH_URL,
   prefix: '/proxy/auth',
@@ -15,6 +13,19 @@ server.register(require('fastify-http-proxy'), {
       return omit(headers, ['origin', 'Origin'])
     },
   },
+})
+
+server.register(require('fastify-sensible'))
+
+server.register(require('fastify-accepts'))
+
+server.register(require('fastify-qs'), {})
+
+server.register(require('@mgcrea/fastify-request-logger').default);
+
+server.register(require('fastify-autoroutes'), {
+  dir: './routes',
+  
 })
 
 server.listen(5000)

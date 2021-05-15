@@ -3,6 +3,7 @@ import { atom, useAtom } from 'jotai'
 import { tokenAtom } from '../api/state'
 import { authConfig, appConfig } from '../config'
 import QueryString from 'qs'
+import { apiURL } from '../lib/url'
 
 const authURL = (path, params = {}) => {
   return (
@@ -62,6 +63,16 @@ const authAPIAtom = atom(get => {
         },
         body: params.toString(),
       }).then(response => response.json())
+    },
+    async me() {
+      return fetch(authURL('userinfo'), {
+        headers: {
+          Authorization: `${token.token_type} ${token.access_token}`,
+        },
+      })
+        .then(response => response.json())
+        .then(user => fetch(apiURL(`users/${user.sub}`), { method: 'PUT' }))
+        .then(response => response.json())
     },
   }
 })
